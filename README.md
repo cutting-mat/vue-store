@@ -39,7 +39,7 @@ Vue.use(store, {
 It is recommended to save the configuration in a separate file:
 
 ``` js
-// 推荐
+// recommend
 import store from '@tower1229/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
@@ -49,10 +49,10 @@ Vue.use(store, storeConfig);
 3. use
 
 ``` js
-// 全局方法
+// Global method
 Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
 
-// 实例方法
+// instance method
 this.$store.set('testValue', parseInt(Math.random() * 1e8))
 
 ```
@@ -72,7 +72,7 @@ this.$store.state.get('testValue')
 
 ```
 
-## 方法
+## Method
 
 - $store.config(options[Object])
 
@@ -137,7 +137,7 @@ For asynchronous operation of data, the operation method needs to be set in `con
 
 Return Promise Object.
 
-## 响应式应用
+## Responsive application
 
 The data in `$store.state` is responsive
 
