@@ -1,0 +1,31 @@
+{
+  "name": "@tower1229/vue-store",
+  "version": "1.0.0",
+  "description": "Simpler Vue state management plug-in",
+  "private": false,
+  "source": "src/store.js",
+  "main": "dist/main.js",
+  "module": "dist/module.js",
+  "scripts": {
+    "watch": "parcel watch",
+    "build": "parcel build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tower1229/vue-store.git"
+  },
+  "keywords": [
+    "store",
+    "vuex",
+    "vue-store"
+  ],
+  "author": "tower12229@foxmail.com",
+  "devDependencies": {
+    "parcel": "^2.2.1"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/tower1229/vue-store/issues"
+  },
+  "homepage": "https://github.com/tower1229/vue-store#readme"
+}
