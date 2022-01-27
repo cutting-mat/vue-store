@@ -2,7 +2,7 @@ English | [中文](README_CN.md)
 
 # @tower1229/vue-store
 
-[![npm](https://img.shields.io/npm/v/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
+[![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
 
 The upgraded alternative of Axios, which has the same API as Axios, only extends the caching function for the `Instance.get()` method
 
