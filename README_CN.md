@@ -2,7 +2,7 @@
 
 # @tower1229/vue-store
 
-[![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
+[![npm](https://img.shields.io/npm/v/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
 
 更简单的vue状态管理插件
 
