@@ -121,7 +121,7 @@ this.$store.state.get('testValue')
 
 运行时配置store(仓库)，与`Vue.use(store, config)`等效，你可能需要，但不建议使用。
 
-- $store.set(key[String], value[Any])
+- **$store.set(key[String], value[Any])**
 
 存储数据，为避免不可追踪的操作错误，对未注册的key赋值将抛出错误。
 
