@@ -4,7 +4,9 @@
 
 [![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
 
-更简单的vue状态管理插件，如果你也觉得vuex有点复杂，那么你需要这个
+更简单的vue状态管理插件，如果你也觉得vuex有点复杂，那么你需要这个。
+
+只有`get()/set()/action()`几个方法就足够了，而且同时兼容Vue2.x和Vue3.x。
 
 ## 快速开始
 
@@ -36,7 +38,7 @@ Vue.use(store, {
 });
 ```
 
-建议将配置存到独立文件中：
+建议将Store配置放在独立文件中：
 
 ``` js
 // 推荐
@@ -45,38 +47,6 @@ import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
 ```
-
-3. 使用
-
-``` js
-// 全局方法
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
-
-// 实例方法
-this.$store.set('testValue', parseInt(Math.random() * 1e8))
-
-```
-
-## 属性
-
-- $store.state
-
-数据集合，注意不要直接对数据集合赋值！以下语句等效
-
-``` js
-Vue.$store.state.testValue
-Vue.$store.state.get('testValue')
-
-this.$store.state.testValue
-this.$store.state.get('testValue')
-
-```
-
-## 方法
-
-- $store.config(options[Object])
-
-动态配置store(仓库)，与`Vue.use(store, config)`的格式相同。
 
 ``` js
 /**
@@ -119,17 +89,49 @@ export default {
 }
 ```
 
+3. 使用
+
+``` js
+// 全局方法
+Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
+
+// 实例方法
+this.$store.set('testValue', parseInt(Math.random() * 1e8))
+
+```
+
+## 属性
+
+- **$store.state**
+
+数据集合，注意不要直接对数据集合赋值！以下语句等效
+
+``` js
+Vue.$store.state.testValue
+Vue.$store.state.get('testValue')
+
+this.$store.state.testValue
+this.$store.state.get('testValue')
+
+```
+
+## 方法
+
+- **$store.config(options[Object])**
+
+运行时配置store(仓库)，与`Vue.use(store, config)`等效，你可能需要，但不建议使用。
+
 - $store.set(key[String], value[Any])
 
 存储数据，为避免不可追踪的操作错误，对未注册的key赋值将抛出错误。
 
 注意，不要直接对数据集合赋值！<s>$store.state.testValue = 123</s>
 
-- $store.get(key[String])
+- **$store.get(key[String])**
 
 获取数据，与$store.state[key]等效
 
-- $store.action(key[String], payload[Any])
+- **$store.action(key[String], payload[Any])**
 
 异步操作数据，操作方法需要预先在config.actions中配置。
 

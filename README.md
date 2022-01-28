@@ -4,17 +4,19 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
 
-A simpler Vue state management plug-in. If you also think vuex is a little complicated, you need this
+A simpler Vue state management plug-in. If you also think vuex is a little complicated, you need this.
+
+Only 'get() / set() / action()' is enough, and it is compatible with vue2 X and vue3 x。
 
 ## Quick start
 
-1. install:
+1. Install:
 
 ``` bash
 npm i @tower1229/vue-store --save
 ```
 
-2. configure
+2. Configure
 
 ``` js
 import store from '@tower1229/vue-store';
@@ -45,38 +47,6 @@ import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
 ```
-
-3. use
-
-``` js
-// Global method
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
-
-// instance method
-this.$store.set('testValue', parseInt(Math.random() * 1e8))
-
-```
-
-## Attribute
-
-- $store.state
-
-For all data in the warehouse, be careful not to directly assign values to the data set! The following statements are equivalent
-
-``` js
-Vue.$store.state.testValue
-Vue.$store.state.get('testValue')
-
-this.$store.state.testValue
-this.$store.state.get('testValue')
-
-```
-
-## Method
-
-- $store.config(options[Object])
-
-Dynamically configure the store (warehouse), and `Vue.use(store, config)` is the same.
 
 ``` js
 /**
@@ -119,17 +89,49 @@ export default {
 }
 ```
 
-- $store.set(key[String], value[Any])
+3. Use
+
+``` js
+// Global method
+Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
+
+// instance method
+this.$store.set('testValue', parseInt(Math.random() * 1e8))
+
+```
+
+## Attribute
+
+- **$store.state**
+
+For all data in the warehouse, be careful not to directly assign values to the data set! The following statements are equivalent
+
+``` js
+Vue.$store.state.testValue
+Vue.$store.state.get('testValue')
+
+this.$store.state.testValue
+this.$store.state.get('testValue')
+
+```
+
+## Method
+
+- **$store.config(options[Object])**
+
+Run time configuration store, and ` Vue.use(store, config) ` equivalent. You may need it, but it is not recommended.
+
+- **$store.set(key[String], value[Any])**
 
 Store data. In order to avoid untraceable operation errors, assigning an unregistered key will throw an error.
 
 Note: do not directly assign values to store!<s>$store.state.testValue = 123</s>
 
-- $store.get(key[String])
+- **$store.get(key[String])**
 
 Get data, and `$store.state[key]` equivalent
 
-- $store.action(key[String], payload[Any])
+- **$store.action(key[String], payload[Any])**
 
 For asynchronous operation of data, the operation method needs to be set in `config.actions`.
 
