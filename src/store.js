@@ -4,8 +4,9 @@
  * Store.get(key)
  * Store.action(key).then().catch()
  * */
+import { reactive } from "vue";
 
- export const store = {
+export const store = {
     state: {},
     actions: {},
     inStore(key) {
@@ -24,7 +25,11 @@
     },
     get(key) {
         if (key && key.split) {
-            return this.state[key]
+            if (this.inStore(key)) {
+                return this.state[key]
+            } else {
+                throw new Error(`Store get("${key}") the key has not registered yet!`)
+            }
         }
     },
     action(key, payoud) {
@@ -54,9 +59,18 @@
 }
 
 export default {
-    install: function (Vue, options) {
-        store.state = options.state || {}
-        store.actions = options.actions || {}
-        Vue.prototype.$store = store
+    install: function (app, options) {
+        if (reactive) {
+            // vue 3
+            store.state = reactive(Object.assign({}, this.state, options.state || {}))
+            store.actions = reactive(Object.assign({}, this.actions, options.actions || {}))
+            app.config.globalProperties.$store = store
+        } else {
+            // vue 2
+            Object.assign(store.state, options.state || {})
+            Object.assign(store.actions, options.actions || {})
+            app.$store = app.prototype.$store = store
+        }
+
     }
 }

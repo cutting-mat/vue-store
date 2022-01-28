@@ -7,8 +7,9 @@
   "main": "dist/main.js",
   "module": "dist/module.js",
   "scripts": {
-    "watch": "parcel watch",
-    "build": "parcel build"
+    "dev": "parcel test/index.html",
+    "build": "parcel build",
+    "build-web": "parcel build test/index.html --dist-dir docs"
   },
   "repository": {
     "type": "git",
@@ -20,7 +21,11 @@
     "vue-store"
   ],
   "author": "tower12229@foxmail.com",
+  "dependencies": {
+    "vue": "^3.2.19"
+  },
   "devDependencies": {
+    "@parcel/transformer-vue": "^2.2.1",
     "parcel": "^2.2.1"
   },
   "license": "MIT",

@@ -4,7 +4,7 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
 
-The upgraded alternative of Axios, which has the same API as Axios, only extends the caching function for the `Instance.get()` method
+A simpler Vue state management plug-in. If you also think vuex is a little complicated, you need this
 
 ## Quick start
 
