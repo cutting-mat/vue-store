@@ -1,6 +1,6 @@
 {
   "name": "@tower1229/vue-store",
-  "version": "1.0.1",
+  "version": "1.0.4",
   "description": "Simpler Vue state management plug-in",
   "private": false,
   "source": "src/store.js",
