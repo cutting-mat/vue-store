@@ -1,5 +1,5 @@
 {
-  "name": "@tower1229/vue-store",
+  "name": "@cutting-mat/vue-store",
   "version": "1.0.4",
   "description": "Simpler Vue state management plug-in",
   "private": false,
@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/tower1229/vue-store.git"
+    "url": "git+https://github.com/cutting-mat/vue-store.git"
   },
   "keywords": [
     "store",
@@ -30,7 +30,7 @@
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tower1229/vue-store/issues"
+    "url": "https://github.com/cutting-mat/vue-store/issues"
   },
-  "homepage": "https://github.com/tower1229/vue-store#readme"
+  "homepage": "https://github.com/cutting-mat/vue-store#readme"
 }

@@ -1,8 +1,8 @@
 中文 | [English](README.md)
 
-# @tower1229/vue-store
+# @cutting-mat/vue-store
 
-[![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
+[![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
 更简单的vue状态管理插件，如果你也觉得vuex有点复杂，那么你需要这个。
 
@@ -13,13 +13,13 @@
 1. 安装:
 
 ``` bash
-npm i @tower1229/vue-store --save
+npm i @cutting-mat/vue-store --save
 ```
 
 2. 配置
 
 ``` js
-import store from '@tower1229/vue-store';
+import store from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -42,7 +42,7 @@ Vue.use(store, {
 
 ``` js
 // 推荐
-import store from '@tower1229/vue-store';
+import store from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 

@@ -1,8 +1,8 @@
 English | [中文](README_CN.md)
 
-# @tower1229/vue-store
+# @cutting-mat/vue-store
 
-[![npm](https://img.shields.io/npm/v/@tower1229/vue-store.svg)](https://www.npmjs.com/package/@tower1229/vue-store) [![license](https://img.shields.io/github/license/tower1229/vue-store.svg)]()
+[![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
 A simpler Vue state management plug-in. If you also think vuex is a little complicated, you need this.
 
@@ -13,13 +13,13 @@ Only 'get() / set() / action()' is enough, and it is compatible with vue2 X and 
 1. Install:
 
 ``` bash
-npm i @tower1229/vue-store --save
+npm i @cutting-mat/vue-store --save
 ```
 
 2. Configure
 
 ``` js
-import store from '@tower1229/vue-store';
+import store from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -42,7 +42,7 @@ It is recommended to save the configuration in a separate file:
 
 ``` js
 // recommend
-import store from '@tower1229/vue-store';
+import store from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
