@@ -52,10 +52,14 @@ Vue.use(store, storeConfig);
 /**
  * store configuration file
  * state: {key, value} Define all data in the store
- * actions: {key, action} Define asynchronous operation method
- * action function(context, payload) Support automatic and manual data operation modes
- * 1. Automatic mode: if the key is defined in state and the promise object is returned by the method, the return value of promise will be automatically stored in state[key]
- * 2. Manual mode: the context parameter received by the method supports the get () / set () method, and they can operate the state by themselves
+ * state.key[String]: Data item name, undefined key cannot be saved / retrieved
+ * state.value[Any]: Initial value of data item
+ * actions: {key, action} Define custom actions for store
+ * actions.key[String]: Operation name, if `actions.key` is defined in state and `actions.action` return a Promise , the return value of promise will be automatically stored in `state[key]`
+ * actions.action[Function]: The operation method accepts two parameters (context, payload)
+ *    @param context[Object]: Include `context.get()` and `context.set()` method, you can operate any data in state by yourself
+ *    @param payload[Any]: The parameters passed by `store.action(key, payload)` can be used for Internal logic of `actions.action()`
+ *    return [Any]: The return promise object is a necessary condition for triggering the automatic mode (refer to the description of actions.key). In other cases, there is no need to return a value
  * */
 import * as userApi from "@/user/api/user";
 
