@@ -32,7 +32,7 @@ const $a5a696647f903c1a$export$6f57813fe9f31bf9 = {
     get (key) {
         if (key && key.split) {
             if (this.inStore(key)) return this.state[key];
-            else console.error(`[Store] get("${key}"): the key has not registered yet!`);
+            else return new Error(`[Store] get("${key}"): the key has not registered yet!`);
         }
     },
     action (key, payoud) {

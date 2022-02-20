@@ -7,7 +7,7 @@
 
 export default {
     state: {
-        testValue: null,            // 仅用于测试
+        testValue: 0,            // 仅用于测试
     },
     actions: {
         testAction: function(context){

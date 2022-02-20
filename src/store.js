@@ -28,7 +28,7 @@ export const store = {
             if (this.inStore(key)) {
                 return this.state[key]
             } else {
-                console.error(`[Store] get("${key}"): the key has not registered yet!`)
+                return new Error(`[Store] get("${key}"): the key has not registered yet!`)
             }
         }
     },
