@@ -180,7 +180,7 @@ Distribute action. Action needs to be pre-registered in config.actions. Payload 
 
 Return Promise 。If the action handler returns a Promise, `store.action()` will return the Promise of the handler directly.
 
-## 响应式应用
+## Responsive
 
 The state data in $store.state is responsive。
 
