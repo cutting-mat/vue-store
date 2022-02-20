@@ -57,110 +57,138 @@ The plug-in will automatically register the global `$store` object. Now, you can
 The following statements are equivalent:
 
 ``` js
-this.$store.state.testValue
-this.$store.get('testValue')
+Vue.$store.state.testValue      // 0
+Vue.$store.get('testValue')     // 0
 
-Vue.$store.state.testValue
-Vue.$store.get('testValue')
+this.$store.state.testValue     // 0
+this.$store.get('testValue')    // 0
 
 ```
 
-## 配置
-
+Use `$store.set()` assign value to status.
 
 ``` js
-/**
- * store configuration file
- * state: {key, value} Define all data in the store
- * state.key[String]: Data item name, undefined key cannot be saved / retrieved
- * state.value[Any]: Initial value of data item
- * actions: {key, action} Define custom actions for store
- * actions.key[String]: Operation name, if `actions.key` is defined in state and `actions.action` return a Promise , the return value of promise will be automatically stored in `state[key]`
- * actions.action[Function]: The operation method accepts two parameters (context, payload)
- *    @param context[Object]: Include `context.get()` and `context.set()` method, you can operate any data in state by yourself
- *    @param payload[Any]: The parameters passed by `store.action(key, payload)` can be used for Internal logic of `actions.action()`
- *    return [Any]: The return promise object is a necessary condition for triggering the automatic mode (refer to the description of actions.key). In other cases, there is no need to return a value
- * */
-import * as userApi from "@/user/api/user";
 
+Vue.$store.set('testValue', parseInt(Math.random() * 1e8))  // 0.279396939199827
+
+this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.5405537846956767
+
+```
+
+You can also assign a value to the state directly, but make sure the key is registered in advance, otherwise the data is not responsive.
+
+``` js
+this.$store.state.testValue = 123   // 123
+
+this.$store.state.unRegisteredKey = 456 // Unregistered status is not responsive 
+
+```
+
+`$store.set()` will intercept and prompt unregistered assignment operations, so it is recommended to always use `$store.set()` assignment.
+
+Use `$store.action()` execute custom operation.
+
+```js
+Vue.$store.action('testAction').then(newValue = {
+    console.log(newValue)       // 1
+})
+
+this.$store.action('testAction').then(newValue = {
+    console.log(newValue)       // 2
+})
+
+```
+
+## API
+
+### Configuration
+
+- state
+
+Type: Object | Function
+
+If you pass in a function that returns an object, the object returned will be used as state.
+
+- actions
+
+Type: { [type: string]: Function }
+
+Register on the action store. The handler function always accepts context as the first parameter and payload as the second parameter (optional).
+
+`context` Object contains the following properties：
+
+```js
+{
+  set,      // Equivalent to `store.set`
+  get       // Equivalent to `store.get`
+}
+
+```
+
+At the same time, if there is the second parameter payload, it can also be received. Payload is a parameter carried when distributing actions.
+
+#### Automatic mode
+
+Action is most often used to obtain asynchronous data and store it in state. For this scenario, `vue-store` supports a simpler automatic mode。
+
+When the type of action has a state with the same name in state and the processing function returns a promise, the return value of promise will be automatically assigned to the state with the same name in state.
+
+Examples：
+
+```js
 export default {
     state: {
-        testValue: null,            // For testing only
-        permission: []              // User rights
+        AsynData: []
     },
     actions: {
-        testAction: function(context){
-            // 'testAction' is not registered in state, triggering manual mode
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    context.set('testValue', parseInt(context.get('testValue')+1))
-                    resolve()
-                }, 500)
-            })
-        },
-        permission: function (context, payload) {
-            // 'permission' has been registered in state, and promise object is returned to trigger automatic mode
-            // Call `$store.action('permission')` will automatically save the returned value into `$store.state.permission`
-            return userApi.permission(payload).then(res => {
-                // Here you can format the returned data
-                return {
-                    menus: res.data.data.filter((e) => e.type === 0),
-                    resources: res.data.data.filter((e) => e.type === 1),
-                };
+        AsynData: function (context, payload) {
+            return getAsynData(payload).then(res => {
+                // You can format the returned data here, and the returned value will be automatically stored in state.AsynData
+                return res.data;
             })
         },
     }
 }
 ```
 
-## Attribute
+### Store attribute
 
-- **$store.state**
+- state
 
-For all data in the warehouse, be careful not to directly assign values to the data set! The following statements are equivalent
+Type: Object
 
-``` js
-Vue.$store.state.testValue
-Vue.$store.state.get('testValue')
+Status object. All statuses need to be pre registered.
 
-this.$store.state.testValue
-this.$store.state.get('testValue')
+### Store method
 
-```
+- set(key[String], value[Any])
 
-## Method
+Updating the status and assigning a value to an unregistered key will throw an error.
 
-- **$store.config(options[Object])**
+Return Promise 。
 
-Run time configuration store, and ` Vue.use(store, config) ` equivalent. You may need it, but it is not recommended.
+- get(key[String])
 
-- **$store.set(key[String], value[Any])**
+Get status. And $store.state[key] is equivalent, and an error will be thrown for the value of unregistered key.
 
-Store data. In order to avoid untraceable operation errors, assigning an unregistered key will throw an error.
+Return status value。
 
-Note: do not directly assign values to store!<s>$store.state.testValue = 123</s>
+- action(type[String], payload[Any])
 
-- **$store.get(key[String])**
+分发 action 。即执行自定义操作，action 需要预先在 config.actions 中注册。payload 是向操作方法传递的参数。
+Distribute action. Action needs to be pre-registered in config.actions. Payload is the parameter passed to the operation method.
 
-Get data, and `$store.state[key]` equivalent
+Return Promise 。If the action handler returns a Promise, `store.action()` will return the Promise of the handler directly.
 
-- **$store.action(key[String], payload[Any])**
+## 响应式应用
 
-For asynchronous operation of data, the operation method needs to be set in `config.actions`.
-
-'Payload' is the parameter passed to the operation method.
-
-Return Promise Object.
-
-## Responsive application
-
-The data in `$store.state` is responsive
+The state data in $store.state is responsive。
 
 ``` html
 <template>
     <div>
         <div>
-            testValue = {{ testValue }}
+            Responsive Data：testValue = {{ testValue }}
         </div>
         <button @click.native="$store.action('testAction')">Change data</button>
     </div>
