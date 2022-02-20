@@ -4,9 +4,9 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-A simpler Vue state management plug-in. If you also think vuex is a little complicated, you need this.
+A simpler Vue state management plug-in. If you also think Vuex is a little complicated, you need `vue-store`.
 
-Only 'get() / set() / action()' is enough, and it is compatible with vue2 X and vue3 x。
+Only 'get() / set() / action()' is enough, and it is compatible with vue2 and vue3。
 
 ## Quick start
 
@@ -16,16 +16,18 @@ Only 'get() / set() / action()' is enough, and it is compatible with vue2 X and 
 npm i @cutting-mat/vue-store --save
 ```
 
-2. Configure
+2. Configure Store
 
 ``` js
 import store from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
+        // Data in store
         testValue: null,
     },
     actions: {
+        // Asynchronous operation
         testAction: function(context){
             return new Promise(resolve => {
                 setTimeout(() => {
@@ -38,7 +40,7 @@ Vue.use(store, {
 });
 ```
 
-It is recommended to save the configuration in a separate file:
+There may be many data items in the actual project. You can put the configuration in a separate file:
 
 ``` js
 // recommend
@@ -47,6 +49,24 @@ import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
 ```
+
+3. Use
+
+The plug-in will automatically register the global `$store` object. Now, you can use  `$store.state` or `$store.get()` to get the status object.
+
+The following statements are equivalent:
+
+``` js
+this.$store.state.testValue
+this.$store.get('testValue')
+
+Vue.$store.state.testValue
+Vue.$store.get('testValue')
+
+```
+
+## 配置
+
 
 ``` js
 /**
@@ -91,17 +111,6 @@ export default {
         },
     }
 }
-```
-
-3. Use
-
-``` js
-// Global method
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
-
-// instance method
-this.$store.set('testValue', parseInt(Math.random() * 1e8))
-
 ```
 
 ## Attribute

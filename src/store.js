@@ -16,10 +16,10 @@ export const store = {
         return new Promise((resolve, reject) => {
             if (this.inStore(key)) {
                 this.state[key] = newValue;
-                console.log('Store update', key, '=>', this.state[key])
-                resolve(true)
+                console.log('[Store] update:', key, '=>', this.state[key])
+                resolve(newValue)
             } else {
-                reject(`Store set("${key}", value) the key has not registered yet!`)
+                reject(`[Store] set("${key}", value): the key has not registered yet!`)
             }
         })
     },
@@ -28,7 +28,7 @@ export const store = {
             if (this.inStore(key)) {
                 return this.state[key]
             } else {
-                throw new Error(`Store get("${key}") the key has not registered yet!`)
+                console.error(`[Store] get("${key}"): the key has not registered yet!`)
             }
         }
     },
@@ -41,9 +41,10 @@ export const store = {
                 }, payoud);
 
                 if (actionReturn && (typeof actionReturn.then === 'function')) {
+                    // action 返回 Promise
                     actionReturn.then(data => {
                         if (this.inStore(key)) {
-                            // 自动模式
+                            // action 有同名 state ，触发自动模式
                             this.set(key, data)
                         }
                         resolve(data)
@@ -52,7 +53,7 @@ export const store = {
                     resolve(actionReturn)
                 }
             } else {
-                reject(`Store action("${key}", ${payoud}) the action has not registered yet!`)
+                reject(`[Store] action("${key}", ${payoud}): the action has not registered yet!`)
             }
         })
     }
@@ -60,15 +61,24 @@ export const store = {
 
 export default {
     install: function (app, options) {
+        // 合并 state
+        let optionState = options.state || {}
+        if(typeof optionState === 'function'){
+            optionState = optionState() || {}
+        }
+        const mergeState = Object.assign(store.state, optionState)
+        // 合并 action
+        Object.assign(store.actions, options.actions || {})
+
         if (reactive) {
             // vue 3
-            store.state = reactive(Object.assign({}, this.state, options.state || {}))
-            store.actions = reactive(Object.assign({}, this.actions, options.actions || {}))
+            store.state = reactive(mergeState)
+
             app.config.globalProperties.$store = store
-        } else {
+        } else if(app.observable) {
             // vue 2
-            Object.assign(store.state, options.state || {})
-            Object.assign(store.actions, options.actions || {})
+            store.state = app.observable(mergeState)
+            
             app.$store = app.prototype.$store = store
         }
 

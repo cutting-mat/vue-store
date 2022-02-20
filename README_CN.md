@@ -4,9 +4,9 @@
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-更简单的vue状态管理插件，如果你也觉得vuex有点复杂，那么你需要这个。
+更简单的 Vue 状态管理插件，如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
 
-只有`get()/set()/action()`几个方法就足够了，而且同时兼容Vue2.x和Vue3.x。
+只有 `get()/set()/action()` 3个方法，同时兼容 Vue2 和 Vue3。
 
 ## 快速开始
 
@@ -16,21 +16,24 @@
 npm i @cutting-mat/vue-store --save
 ```
 
-2. 配置
+2. 配置 Store
 
 ``` js
 import store from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
-        testValue: null,
+        // 注册状态数据
+        testValue: 0,
     },
     actions: {
+        // 注册自定义操作
         testAction: function(context){
             return new Promise(resolve => {
                 setTimeout(() => {
-                    context.set('testValue', parseInt(context.get('testValue')+1))
-                    resolve()
+                    let newValue = parseInt(context.get('testValue')+1);
+                    context.set('testValue', newValue)
+                    resolve(newValue)
                 }, 500)
             })
         }
@@ -38,7 +41,7 @@ Vue.use(store, {
 });
 ```
 
-建议将Store配置放在独立文件中：
+实际项目中数据项可能会很多，可以将配置放在独立文件中：
 
 ``` js
 // 推荐
@@ -48,110 +51,144 @@ Vue.use(store, storeConfig);
 
 ```
 
-``` js
-/**
- * store 配置文件
- * state: {key, value} 定义store里的所有数据
- * state.key[String]: 数据项名称, 未定义的 key 无法存/取操作
- * state.value[Any]: 数据项初始值
- * actions: {key, action} 定义store的自定义操作
- * actions.key[String]: 操作名称, 如果 actions.key 在 state 中已定义, 且 action 函数返回 Promise 对象, 则 Promise 的返回值将自动存入 state[key]
- * actions.action[Function]: 操作方法, 接受 (context, payload) 两个参数
- *    @param context[Object]: 包含 context.get() 和 context.set() 方法, 可以自行操作 state 中的任意数据 
- *    @param payload[Any]: store.action(key, payload) 所传递的参数, 可用于 actions.action() 方法的内部逻辑
- *    return [Any]: 返回 Promise 对象是触发自动模式的必要条件(参考 actions.key 的说明), 其他情况无需返回值
- * */
-import * as userApi from "@/user/api/user";
+3. 使用
 
+插件将自动注册全局 `$store` 对象。现在，你可以通过 `$store.state` 或 `$store.get()` 来获取状态对象。
+
+以下语句等效：
+
+``` js
+Vue.$store.state.testValue      // 0
+Vue.$store.get('testValue')     // 0
+
+this.$store.state.testValue     // 0
+this.$store.get('testValue')    // 0
+
+```
+
+用 `$store.set()` 为状态赋值。
+
+``` js
+
+Vue.$store.set('testValue', parseInt(Math.random() * 1e8))  // 0.279396939199827
+
+this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.5405537846956767
+
+```
+
+你也可以直接对状态赋值，但要确保 key 要预先注册，否则数据不具备响应性。
+
+``` js
+this.$store.state.testValue = 123   // 123
+
+this.$store.state.unRegisteredKey = 456 // 未注册的状态不具备响应性 
+
+```
+
+`$store.set()` 会拦截并提示未注册的赋值操作，因此建议始终用 `$store.set()` 赋值。
+
+通过 `$store.action()` 执行自定义操作。
+
+```js
+Vue.$store.action('testAction').then(newValue = {
+    console.log(newValue)       // 1
+})
+
+this.$store.action('testAction').then(newValue = {
+    console.log(newValue)       // 2
+})
+
+```
+
+## API
+
+### 配置选项
+
+- state
+
+类型: Object | Function
+
+如果你传入返回一个对象的函数，其返回的对象会被用作 state。
+
+- actions
+
+类型: { [type: string]: Function }
+
+在 store 上注册 action。处理函数总是接受 context 作为第一个参数，payload 作为第二个参数（可选）。
+
+`context` 对象包含以下属性：
+
+```js
+{
+  set,      // 等同于 `store.set`
+  get       // 等同于 `store.get`
+}
+
+```
+
+同时如果有第二个参数 payload 的话也能够接收。payload 是分发 action 时携带的参数。
+
+#### 自动模式
+
+action 最常被用来获取异步数据并存入 state，对于这种场景`vue-store`支持一种更简单的自动模式。
+
+当 action 的 type 在 state 中有同名状态，且处理函数返回一个Promise时，Promise的返回值将自动赋值给 state 中的同名状态。
+
+示例：
+
+```js
 export default {
     state: {
-        testValue: null,            // 仅用于测试
-        permission: []              // 用户权限
+        AsynData: []
     },
     actions: {
-        testAction: function(context){
-            // testAction未在state中注册，触发手动模式
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    context.set('testValue', parseInt(context.get('testValue')+1))
-                    resolve()
-                }, 500)
-            })
-        },
-        permission: function (context, payload) {
-            // permission 已经在state中注册，并且返回Promise对象，触发自动模式
-            // 调用$store.action('permission')会将返回值将自动存入$store.state.permission
-            return userApi.permission(payload).then(res => {
-                // 这里可以对返回数据做格式化操作
-                return {
-                    menus: res.data.data.filter((e) => e.type === 0),
-                    resources: res.data.data.filter((e) => e.type === 1),
-                };
+        AsynData: function (context, payload) {
+            return getAsynData(payload).then(res => {
+                // 这里可以对返回数据做格式化操作，返回值将自动存入 state.AsynData
+                return res.data;
             })
         },
     }
 }
 ```
 
-3. 使用
+### Store 属性
 
-``` js
-// 全局方法
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))
+- state
 
-// 实例方法
-this.$store.set('testValue', parseInt(Math.random() * 1e8))
+类型: Object
 
-```
+状态对象。所有状态要预先注册。
 
-## 属性
+### Store 方法
 
-- **$store.state**
+- set(key[String], value[Any])
 
-数据集合，注意不要直接对数据集合赋值！以下语句等效
+更新状态，对未注册的 key 赋值将抛出错误。
 
-``` js
-Vue.$store.state.testValue
-Vue.$store.state.get('testValue')
+返回 Promise 。
 
-this.$store.state.testValue
-this.$store.state.get('testValue')
+- get(key[String])
 
-```
+获取状态，与 $store.state[key] 等效，对未注册的 key 取值将抛出错误。
 
-## 方法
+返回 状态值 。
 
-- **$store.config(options[Object])**
+- action(type[String], payload[Any])
 
-运行时配置store(仓库)，与`Vue.use(store, config)`等效，你可能需要，但不建议使用。
+分发 action 。即执行自定义操作，action 需要预先在 config.actions 中注册。payload 是向操作方法传递的参数。
 
-- **$store.set(key[String], value[Any])**
-
-存储数据，为避免不可追踪的操作错误，对未注册的key赋值将抛出错误。
-
-注意，不要直接对数据集合赋值！<s>$store.state.testValue = 123</s>
-
-- **$store.get(key[String])**
-
-获取数据，与$store.state[key]等效
-
-- **$store.action(key[String], payload[Any])**
-
-异步操作数据，操作方法需要预先在config.actions中配置。
-
-payload是向操作方法传递的参数。
-
-返回Promise。
+返回 Promise 。如果 action 处理函数返回的是Promise，`store.action()` 会直接返回处理函数的 Promise 。
 
 ## 响应式应用
 
-$store.state中的数据是响应式的
+$store.state 中的状态数据是响应式的。
 
 ``` html
 <template>
     <div>
         <div>
-            store里的数据都是响应式的：testValue = {{ testValue }}
+            响应式数据：testValue = {{ testValue }}
         </div>
         <button @click.native="$store.action('testAction')">改变数据</button>
     </div>

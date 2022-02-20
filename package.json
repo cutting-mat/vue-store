@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Simpler Vue state management plug-in",
   "private": false,
   "source": "src/store.js",
@@ -8,8 +8,7 @@
   "module": "dist/module.js",
   "scripts": {
     "dev": "parcel test/index.html",
-    "build": "parcel build",
-    "build-web": "parcel build test/index.html --dist-dir docs"
+    "build": "parcel build"
   },
   "repository": {
     "type": "git",
@@ -22,11 +21,11 @@
   ],
   "author": "tower12229@foxmail.com",
   "dependencies": {
-    "vue": "^3.2.19"
+    "vue": "^3.2.31"
   },
   "devDependencies": {
-    "@parcel/transformer-vue": "^2.2.1",
-    "parcel": "^2.2.1"
+    "@parcel/transformer-vue": "^2.3.2",
+    "parcel": "^2.3.2"
   },
   "license": "MIT",
   "bugs": {
