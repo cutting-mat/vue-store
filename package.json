@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Simpler Vue state management plug-in",
   "private": false,
   "source": "src/store.js",
