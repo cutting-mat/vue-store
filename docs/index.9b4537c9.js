@@ -537,7 +537,7 @@ app.use(_elementPlusDefault.default);
 app.use(_storeJsDefault.default, _storeConfigDefault.default);
 app.mount("#app");
 
-},{"vue":"gzxs9","./App.vue":"cLzs3","../src/store.js":"d8qyu","./store.config":"gutGu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./assets/global.css":"dwH06","element-plus":"djgkP","element-plus/dist/index.css":"lBbja"}],"gzxs9":[function(require,module,exports) {
+},{"vue":"gzxs9","./App.vue":"cLzs3","element-plus":"djgkP","element-plus/dist/index.css":"lBbja","./assets/global.css":"dwH06","../src/store.js":"d8qyu","./store.config":"gutGu","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gzxs9":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "compile", ()=>compile
@@ -9768,7 +9768,7 @@ exports.default = {
     }
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3","./components/header":"8iO5q","./components/footer":"31jvg"}],"8iO5q":[function(require,module,exports) {
+},{"./components/header":"8iO5q","./components/footer":"31jvg","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"8iO5q":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 let script;
@@ -10111,101 +10111,7 @@ let NOOP = ()=>{
 exports.default = (script)=>{
 };
 
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"d8qyu":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "store", ()=>store
-);
-/**
- * Store Vue状态管理插件
- * Store.set(key, value)
- * Store.get(key)
- * Store.action(key).then().catch()
- * */ var _vue = require("vue");
-const store = {
-    state: {
-    },
-    actions: {
-    },
-    inStore (key) {
-        return this.state[key] !== void 0;
-    },
-    set (key, newValue) {
-        return new Promise((resolve, reject)=>{
-            if (this.inStore(key)) {
-                this.state[key] = newValue;
-                console.log('[Store] update:', key, '=>', this.state[key]);
-                resolve(newValue);
-            } else reject(`[Store] set("${key}", value): the key has not registered yet!`);
-        });
-    },
-    get (key) {
-        if (key && key.split) {
-            if (this.inStore(key)) return this.state[key];
-            else return new Error(`[Store] get("${key}"): the key has not registered yet!`);
-        }
-    },
-    action (key, payoud) {
-        return new Promise((resolve, reject)=>{
-            if (typeof this.actions[key] === 'function') {
-                const actionReturn = this.actions[key]({
-                    get: this.get.bind(store),
-                    set: this.set.bind(store)
-                }, payoud);
-                if (actionReturn && typeof actionReturn.then === 'function') // action 返回 Promise
-                actionReturn.then((data)=>{
-                    if (this.inStore(key)) // action 有同名 state ，触发自动模式
-                    this.set(key, data);
-                    resolve(data);
-                }).catch(reject);
-                else resolve(actionReturn);
-            } else reject(`[Store] action("${key}", ${payoud}): the action has not registered yet!`);
-        });
-    }
-};
-exports.default = {
-    install: function(app, options) {
-        // 合并 state
-        let optionState = options.state || {
-        };
-        if (typeof optionState === 'function') optionState = optionState() || {
-        };
-        const mergeState = Object.assign(store.state, optionState);
-        // 合并 action
-        Object.assign(store.actions, options.actions || {
-        });
-        if (_vue.reactive) {
-            // vue 3
-            store.state = _vue.reactive(mergeState);
-            app.config.globalProperties.$store = store;
-        } else if (app.observable) {
-            // vue 2
-            store.state = app.observable(mergeState);
-            app.$store = app.prototype.$store = store;
-        }
-    }
-};
-
-},{"vue":"gzxs9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gutGu":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-exports.default = {
-    state: {
-        testValue: 0
-    },
-    actions: {
-        testAction: function(context) {
-            return new Promise((resolve)=>{
-                setTimeout(()=>{
-                    context.set('testValue', parseInt(context.get('testValue') + 1));
-                    resolve();
-                }, 500);
-            });
-        }
-    }
-};
-
-},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"dwH06":[function() {},{}],"djgkP":[function(require,module,exports) {
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"djgkP":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>_defaultsMjsDefault.default
@@ -34496,7 +34402,7 @@ var _zoomInMjsDefault = parcelHelpers.interopDefault(_zoomInMjs);
 var _zoomOutMjs = require("./zoom-out.mjs");
 var _zoomOutMjsDefault = parcelHelpers.interopDefault(_zoomOutMjs);
 
-},{"./add-location.mjs":false,"./aim.mjs":false,"./alarm-clock.mjs":false,"./apple.mjs":false,"./arrow-down-bold.mjs":false,"./arrow-down.mjs":"6n9Gq","./arrow-left-bold.mjs":false,"./arrow-left.mjs":"jMNry","./arrow-right-bold.mjs":false,"./arrow-right.mjs":"lvWBQ","./arrow-up-bold.mjs":false,"./arrow-up.mjs":"cH6IN","./avatar.mjs":false,"./back.mjs":"8pffc","./baseball.mjs":false,"./basketball.mjs":false,"./bell-filled.mjs":false,"./bell.mjs":false,"./bicycle.mjs":false,"./bottom-left.mjs":false,"./bottom-right.mjs":false,"./bottom.mjs":false,"./bowl.mjs":false,"./box.mjs":false,"./briefcase.mjs":false,"./brush-filled.mjs":false,"./brush.mjs":false,"./burger.mjs":false,"./calendar.mjs":"9fi03","./camera-filled.mjs":false,"./camera.mjs":false,"./caret-bottom.mjs":false,"./caret-left.mjs":false,"./caret-right.mjs":"aYBQC","./caret-top.mjs":"euGfp","./cellphone.mjs":false,"./chat-dot-round.mjs":false,"./chat-dot-square.mjs":false,"./chat-line-round.mjs":false,"./chat-line-square.mjs":false,"./chat-round.mjs":false,"./chat-square.mjs":false,"./check.mjs":"7MEag","./checked.mjs":false,"./cherry.mjs":false,"./chicken.mjs":false,"./circle-check-filled.mjs":"dVcSH","./circle-check.mjs":"huUvC","./circle-close-filled.mjs":"37R1w","./circle-close.mjs":"cMdv0","./circle-plus-filled.mjs":false,"./circle-plus.mjs":false,"./clock.mjs":"kDAhq","./close-bold.mjs":false,"./close.mjs":"93UkR","./cloudy.mjs":false,"./coffee-cup.mjs":false,"./coffee.mjs":false,"./coin.mjs":false,"./cold-drink.mjs":false,"./collection-tag.mjs":false,"./collection.mjs":false,"./comment.mjs":false,"./compass.mjs":false,"./connection.mjs":false,"./coordinate.mjs":false,"./copy-document.mjs":false,"./cpu.mjs":false,"./credit-card.mjs":false,"./crop.mjs":false,"./d-arrow-left.mjs":"1zD9D","./d-arrow-right.mjs":"5pVgC","./d-caret.mjs":false,"./data-analysis.mjs":false,"./data-board.mjs":false,"./data-line.mjs":false,"./delete-filled.mjs":false,"./delete-location.mjs":false,"./delete.mjs":"ecSdL","./dessert.mjs":false,"./discount.mjs":false,"./dish-dot.mjs":false,"./dish.mjs":false,"./document-add.mjs":false,"./document-checked.mjs":false,"./document-copy.mjs":false,"./document-delete.mjs":false,"./document-remove.mjs":false,"./document.mjs":"10dXm","./download.mjs":false,"./drizzling.mjs":false,"./edit-pen.mjs":"hhGzM","./edit.mjs":false,"./eleme-filled.mjs":false,"./eleme.mjs":false,"./expand.mjs":false,"./failed.mjs":false,"./female.mjs":false,"./files.mjs":false,"./film.mjs":false,"./filter.mjs":false,"./finished.mjs":false,"./first-aid-kit.mjs":false,"./flag.mjs":false,"./fold.mjs":false,"./folder-add.mjs":false,"./folder-checked.mjs":false,"./folder-delete.mjs":false,"./folder-opened.mjs":false,"./folder-remove.mjs":false,"./folder.mjs":false,"./food.mjs":false,"./football.mjs":false,"./fork-spoon.mjs":false,"./fries.mjs":false,"./full-screen.mjs":"bqqII","./goblet-full.mjs":false,"./goblet-square-full.mjs":false,"./goblet-square.mjs":false,"./goblet.mjs":false,"./goods-filled.mjs":false,"./goods.mjs":false,"./grape.mjs":false,"./grid.mjs":false,"./guide.mjs":false,"./headset.mjs":false,"./help-filled.mjs":false,"./help.mjs":false,"./histogram.mjs":false,"./home-filled.mjs":false,"./hot-water.mjs":false,"./house.mjs":false,"./ice-cream-round.mjs":false,"./ice-cream-square.mjs":false,"./ice-cream.mjs":false,"./ice-drink.mjs":false,"./ice-tea.mjs":false,"./info-filled.mjs":"8FOlq","./iphone.mjs":false,"./key.mjs":false,"./knife-fork.mjs":false,"./lightning.mjs":false,"./link.mjs":false,"./list.mjs":false,"./loading.mjs":"5HYNF","./location-filled.mjs":false,"./location-information.mjs":false,"./location.mjs":false,"./lock.mjs":false,"./lollipop.mjs":false,"./magic-stick.mjs":false,"./magnet.mjs":false,"./male.mjs":false,"./management.mjs":false,"./map-location.mjs":false,"./medal.mjs":false,"./menu.mjs":false,"./message-box.mjs":false,"./message.mjs":false,"./mic.mjs":false,"./microphone.mjs":false,"./milk-tea.mjs":false,"./minus.mjs":"cQ4Ms","./money.mjs":false,"./monitor.mjs":false,"./moon-night.mjs":false,"./moon.mjs":false,"./more-filled.mjs":"d3oEe","./more.mjs":"28uzQ","./mostly-cloudy.mjs":false,"./mouse.mjs":false,"./mug.mjs":false,"./mute-notification.mjs":false,"./mute.mjs":false,"./no-smoking.mjs":false,"./notebook.mjs":false,"./notification.mjs":false,"./odometer.mjs":false,"./office-building.mjs":false,"./open.mjs":false,"./operation.mjs":false,"./opportunity.mjs":false,"./orange.mjs":false,"./paperclip.mjs":false,"./partly-cloudy.mjs":false,"./pear.mjs":false,"./phone-filled.mjs":false,"./phone.mjs":false,"./picture-filled.mjs":false,"./picture-rounded.mjs":false,"./picture.mjs":false,"./pie-chart.mjs":false,"./place.mjs":false,"./platform.mjs":false,"./plus.mjs":"91S6i","./pointer.mjs":false,"./position.mjs":false,"./postcard.mjs":false,"./pouring.mjs":false,"./present.mjs":false,"./price-tag.mjs":false,"./printer.mjs":false,"./promotion.mjs":false,"./question-filled.mjs":"kMhFR","./rank.mjs":false,"./reading-lamp.mjs":false,"./reading.mjs":false,"./refresh-left.mjs":"dB8is","./refresh-right.mjs":"iSHvO","./refresh.mjs":false,"./refrigerator.mjs":false,"./remove-filled.mjs":false,"./remove.mjs":false,"./right.mjs":false,"./scale-to-original.mjs":"d38D7","./school.mjs":false,"./scissor.mjs":false,"./search.mjs":"fkL6Y","./select.mjs":false,"./sell.mjs":false,"./semi-select.mjs":false,"./service.mjs":false,"./set-up.mjs":false,"./setting.mjs":false,"./share.mjs":false,"./ship.mjs":false,"./shop.mjs":false,"./shopping-bag.mjs":false,"./shopping-cart-full.mjs":false,"./shopping-cart.mjs":false,"./smoking.mjs":false,"./soccer.mjs":false,"./sold-out.mjs":false,"./sort-down.mjs":false,"./sort-up.mjs":false,"./sort.mjs":false,"./stamp.mjs":false,"./star-filled.mjs":"9uRTI","./star.mjs":"aGrWt","./stopwatch.mjs":false,"./success-filled.mjs":"acZr3","./sugar.mjs":false,"./suitcase.mjs":false,"./sunny.mjs":false,"./sunrise.mjs":false,"./sunset.mjs":false,"./switch-button.mjs":false,"./switch.mjs":false,"./takeaway-box.mjs":false,"./ticket.mjs":false,"./tickets.mjs":false,"./timer.mjs":false,"./toilet-paper.mjs":false,"./tools.mjs":false,"./top-left.mjs":false,"./top-right.mjs":false,"./top.mjs":false,"./trend-charts.mjs":false,"./trophy.mjs":false,"./turn-off.mjs":false,"./umbrella.mjs":false,"./unlock.mjs":false,"./upload-filled.mjs":false,"./upload.mjs":false,"./user-filled.mjs":false,"./user.mjs":false,"./van.mjs":false,"./video-camera-filled.mjs":false,"./video-camera.mjs":false,"./video-pause.mjs":false,"./video-play.mjs":false,"./view.mjs":"jYJvf","./wallet-filled.mjs":false,"./wallet.mjs":false,"./warning-filled.mjs":"46HfV","./warning.mjs":false,"./watch.mjs":false,"./watermelon.mjs":false,"./wind-power.mjs":false,"./zoom-in.mjs":"9vFYG","./zoom-out.mjs":"ekp6M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6n9Gq":[function(require,module,exports) {
+},{"./add-location.mjs":false,"./aim.mjs":false,"./alarm-clock.mjs":false,"./apple.mjs":false,"./arrow-down-bold.mjs":false,"./arrow-down.mjs":"6n9Gq","./arrow-left-bold.mjs":false,"./arrow-left.mjs":"jMNry","./arrow-right-bold.mjs":false,"./arrow-right.mjs":"lvWBQ","./arrow-up-bold.mjs":false,"./arrow-up.mjs":"cH6IN","./avatar.mjs":false,"./back.mjs":"8pffc","./baseball.mjs":false,"./basketball.mjs":false,"./bell-filled.mjs":false,"./bell.mjs":false,"./bicycle.mjs":false,"./bottom-left.mjs":false,"./bottom-right.mjs":false,"./bottom.mjs":false,"./bowl.mjs":false,"./box.mjs":false,"./briefcase.mjs":false,"./brush-filled.mjs":false,"./brush.mjs":false,"./burger.mjs":false,"./calendar.mjs":"9fi03","./camera-filled.mjs":false,"./camera.mjs":false,"./caret-bottom.mjs":false,"./caret-left.mjs":false,"./caret-right.mjs":"aYBQC","./caret-top.mjs":"euGfp","./cellphone.mjs":false,"./chat-dot-round.mjs":false,"./chat-dot-square.mjs":false,"./chat-line-round.mjs":false,"./chat-line-square.mjs":false,"./chat-round.mjs":false,"./chat-square.mjs":false,"./check.mjs":"7MEag","./checked.mjs":false,"./cherry.mjs":false,"./chicken.mjs":false,"./circle-check-filled.mjs":"dVcSH","./circle-check.mjs":"huUvC","./circle-close-filled.mjs":"37R1w","./circle-close.mjs":"cMdv0","./circle-plus-filled.mjs":false,"./circle-plus.mjs":false,"./clock.mjs":"kDAhq","./close-bold.mjs":false,"./close.mjs":"93UkR","./cloudy.mjs":false,"./coffee-cup.mjs":false,"./coffee.mjs":false,"./coin.mjs":false,"./cold-drink.mjs":false,"./collection-tag.mjs":false,"./collection.mjs":false,"./comment.mjs":false,"./compass.mjs":false,"./connection.mjs":false,"./coordinate.mjs":false,"./copy-document.mjs":false,"./cpu.mjs":false,"./credit-card.mjs":false,"./crop.mjs":false,"./d-arrow-left.mjs":"1zD9D","./d-arrow-right.mjs":"5pVgC","./d-caret.mjs":false,"./data-analysis.mjs":false,"./data-board.mjs":false,"./data-line.mjs":false,"./delete-filled.mjs":false,"./delete-location.mjs":false,"./delete.mjs":"ecSdL","./dessert.mjs":false,"./discount.mjs":false,"./dish-dot.mjs":false,"./dish.mjs":false,"./document-add.mjs":false,"./document-checked.mjs":false,"./document-copy.mjs":false,"./document-delete.mjs":false,"./document-remove.mjs":false,"./document.mjs":"10dXm","./download.mjs":false,"./drizzling.mjs":false,"./edit-pen.mjs":false,"./edit.mjs":false,"./eleme-filled.mjs":false,"./eleme.mjs":false,"./expand.mjs":false,"./failed.mjs":false,"./female.mjs":false,"./files.mjs":false,"./film.mjs":false,"./filter.mjs":false,"./finished.mjs":false,"./first-aid-kit.mjs":false,"./flag.mjs":false,"./fold.mjs":false,"./folder-add.mjs":false,"./folder-checked.mjs":false,"./folder-delete.mjs":false,"./folder-opened.mjs":false,"./folder-remove.mjs":false,"./folder.mjs":false,"./food.mjs":false,"./football.mjs":false,"./fork-spoon.mjs":false,"./fries.mjs":false,"./full-screen.mjs":"bqqII","./goblet-full.mjs":false,"./goblet-square-full.mjs":false,"./goblet-square.mjs":false,"./goblet.mjs":false,"./goods-filled.mjs":false,"./goods.mjs":false,"./grape.mjs":false,"./grid.mjs":false,"./guide.mjs":false,"./headset.mjs":false,"./help-filled.mjs":false,"./help.mjs":false,"./histogram.mjs":false,"./home-filled.mjs":false,"./hot-water.mjs":false,"./house.mjs":false,"./ice-cream-round.mjs":false,"./ice-cream-square.mjs":false,"./ice-cream.mjs":false,"./ice-drink.mjs":false,"./ice-tea.mjs":false,"./info-filled.mjs":"8FOlq","./iphone.mjs":false,"./key.mjs":false,"./knife-fork.mjs":false,"./lightning.mjs":false,"./link.mjs":false,"./list.mjs":false,"./loading.mjs":"5HYNF","./location-filled.mjs":false,"./location-information.mjs":false,"./location.mjs":false,"./lock.mjs":false,"./lollipop.mjs":false,"./magic-stick.mjs":false,"./magnet.mjs":false,"./male.mjs":false,"./management.mjs":false,"./map-location.mjs":false,"./medal.mjs":false,"./menu.mjs":false,"./message-box.mjs":false,"./message.mjs":false,"./mic.mjs":false,"./microphone.mjs":false,"./milk-tea.mjs":false,"./minus.mjs":"cQ4Ms","./money.mjs":false,"./monitor.mjs":false,"./moon-night.mjs":false,"./moon.mjs":false,"./more-filled.mjs":"d3oEe","./more.mjs":"28uzQ","./mostly-cloudy.mjs":false,"./mouse.mjs":false,"./mug.mjs":false,"./mute-notification.mjs":false,"./mute.mjs":false,"./no-smoking.mjs":false,"./notebook.mjs":false,"./notification.mjs":false,"./odometer.mjs":false,"./office-building.mjs":false,"./open.mjs":false,"./operation.mjs":false,"./opportunity.mjs":false,"./orange.mjs":false,"./paperclip.mjs":false,"./partly-cloudy.mjs":false,"./pear.mjs":false,"./phone-filled.mjs":false,"./phone.mjs":false,"./picture-filled.mjs":false,"./picture-rounded.mjs":false,"./picture.mjs":false,"./pie-chart.mjs":false,"./place.mjs":false,"./platform.mjs":false,"./plus.mjs":"91S6i","./pointer.mjs":false,"./position.mjs":false,"./postcard.mjs":false,"./pouring.mjs":false,"./present.mjs":false,"./price-tag.mjs":false,"./printer.mjs":false,"./promotion.mjs":false,"./question-filled.mjs":"kMhFR","./rank.mjs":false,"./reading-lamp.mjs":false,"./reading.mjs":false,"./refresh-left.mjs":"dB8is","./refresh-right.mjs":"iSHvO","./refresh.mjs":false,"./refrigerator.mjs":false,"./remove-filled.mjs":false,"./remove.mjs":false,"./right.mjs":false,"./scale-to-original.mjs":"d38D7","./school.mjs":false,"./scissor.mjs":false,"./search.mjs":"fkL6Y","./select.mjs":false,"./sell.mjs":false,"./semi-select.mjs":false,"./service.mjs":false,"./set-up.mjs":false,"./setting.mjs":false,"./share.mjs":false,"./ship.mjs":false,"./shop.mjs":false,"./shopping-bag.mjs":false,"./shopping-cart-full.mjs":false,"./shopping-cart.mjs":false,"./smoking.mjs":false,"./soccer.mjs":false,"./sold-out.mjs":false,"./sort-down.mjs":false,"./sort-up.mjs":false,"./sort.mjs":false,"./stamp.mjs":false,"./star-filled.mjs":"9uRTI","./star.mjs":"aGrWt","./stopwatch.mjs":false,"./success-filled.mjs":"acZr3","./sugar.mjs":false,"./suitcase.mjs":false,"./sunny.mjs":false,"./sunrise.mjs":false,"./sunset.mjs":false,"./switch-button.mjs":false,"./switch.mjs":false,"./takeaway-box.mjs":false,"./ticket.mjs":false,"./tickets.mjs":false,"./timer.mjs":false,"./toilet-paper.mjs":false,"./tools.mjs":false,"./top-left.mjs":false,"./top-right.mjs":false,"./top.mjs":false,"./trend-charts.mjs":false,"./trophy.mjs":false,"./turn-off.mjs":false,"./umbrella.mjs":false,"./unlock.mjs":false,"./upload-filled.mjs":false,"./upload.mjs":false,"./user-filled.mjs":false,"./user.mjs":false,"./van.mjs":false,"./video-camera-filled.mjs":false,"./video-camera.mjs":false,"./video-pause.mjs":false,"./video-play.mjs":false,"./view.mjs":"jYJvf","./wallet-filled.mjs":false,"./wallet.mjs":false,"./warning-filled.mjs":"46HfV","./warning.mjs":false,"./watch.mjs":false,"./watermelon.mjs":false,"./wind-power.mjs":false,"./zoom-in.mjs":"9vFYG","./zoom-out.mjs":"ekp6M","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"6n9Gq":[function(require,module,exports) {
 var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
 parcelHelpers.defineInteropFlag(exports);
 parcelHelpers.export(exports, "default", ()=>arrowDown
@@ -35191,45 +35097,6 @@ function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
     return _vue.openBlock(), _vue.createElementBlock("svg", _hoisted_1, _hoisted_3);
 }
 var document = /* @__PURE__ */ _pluginVueExportHelperMjsDefault.default(_sfc_main, [
-    [
-        "render",
-        _sfc_render
-    ]
-]);
-
-},{"vue":"gzxs9","./_virtual/plugin-vue_export-helper.mjs":"cpEwC","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"hhGzM":[function(require,module,exports) {
-var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
-parcelHelpers.defineInteropFlag(exports);
-parcelHelpers.export(exports, "default", ()=>editPen
-);
-var _vue = require("vue");
-var _pluginVueExportHelperMjs = require("./_virtual/plugin-vue_export-helper.mjs");
-var _pluginVueExportHelperMjsDefault = parcelHelpers.interopDefault(_pluginVueExportHelperMjs);
-const _sfc_main = _vue.defineComponent({
-    name: "EditPen"
-});
-const _hoisted_1 = {
-    t: "1639990532110",
-    class: "icon",
-    viewBox: "0 0 1024 1024",
-    version: "1.1",
-    xmlns: "http://www.w3.org/2000/svg",
-    "p-id": "12171",
-    "xmlns:xlink": "http://www.w3.org/1999/xlink",
-    width: "200",
-    height: "200"
-};
-const _hoisted_2 = /* @__PURE__ */ _vue.createElementVNode("path", {
-    d: "M199.04 672.64l193.984 112 224-387.968-193.92-112-224 388.032z m-23.872 60.16l32.896 148.288 144.896-45.696-177.792-102.592zM455.04 229.248l193.92 112 56.704-98.112-193.984-112-56.64 98.112zM104.32 708.8l384-665.024 304.768 175.936-383.936 665.088h0.064l-248.448 78.336-56.448-254.336z m384 254.272v-64h448v64h-448z",
-    "p-id": "12172"
-}, null, -1);
-const _hoisted_3 = [
-    _hoisted_2
-];
-function _sfc_render(_ctx, _cache, $props, $setup, $data, $options) {
-    return _vue.openBlock(), _vue.createElementBlock("svg", _hoisted_1, _hoisted_3);
-}
-var editPen = /* @__PURE__ */ _pluginVueExportHelperMjsDefault.default(_sfc_main, [
     [
         "render",
         _sfc_render
@@ -90577,6 +90444,100 @@ var _propsMjs1 = require("./virtual-list/src/props.mjs");
 var _messageMjs = require("./message/src/message.mjs");
 var _notificationMjs = require("./notification/src/notification.mjs");
 
-},{"./virtual-list/index.mjs":"gcf4S","./affix/index.mjs":"fMcKf","./alert/index.mjs":"jX4vK","./autocomplete/index.mjs":"lnNbL","./avatar/index.mjs":"edhpQ","./backtop/index.mjs":"iA9M1","./badge/index.mjs":"gvyeW","./breadcrumb/index.mjs":"6p9GR","./button/index.mjs":"64Ym1","./calendar/index.mjs":"iyUgV","./card/index.mjs":"ftRFC","./carousel/index.mjs":"DjiER","./cascader/index.mjs":"hgxNT","./cascader-panel/index.mjs":"cvCE6","./check-tag/index.mjs":"2yvIi","./checkbox/index.mjs":"jMNjD","./col/index.mjs":"iutZ4","./collapse/index.mjs":"2aUAi","./collapse-transition/index.mjs":"kOsra","./color-picker/index.mjs":"kWiGH","./config-provider/index.mjs":"5LcSW","./container/index.mjs":"7nKg2","./date-picker/index.mjs":"fdWz7","./descriptions/index.mjs":"aXmMH","./dialog/index.mjs":"iXu3z","./divider/index.mjs":"8bcJq","./drawer/index.mjs":"DJoCd","./dropdown/index.mjs":"dk8yW","./empty/index.mjs":"5bPkj","./form/index.mjs":"hQT2m","./icon/index.mjs":"hnNTG","./image/index.mjs":"hFVHx","./image-viewer/index.mjs":"39t5l","./input/index.mjs":"18eQI","./input-number/index.mjs":"1U2Gu","./link/index.mjs":"18DrN","./menu/index.mjs":"5wfdz","./overlay/index.mjs":"2HJvE","./page-header/index.mjs":"cmyvF","./pagination/index.mjs":"ep8iT","./popconfirm/index.mjs":"ds8jY","./popper/index.mjs":"kIV7g","./progress/index.mjs":"9ijV7","./radio/index.mjs":"fekfn","./rate/index.mjs":"8o4Y1","./result/index.mjs":"lHyTs","./row/index.mjs":"7Vl2s","./scrollbar/index.mjs":"kXLHt","./select/index.mjs":"llDRW","./select-v2/index.mjs":"lUvDZ","./skeleton/index.mjs":"2N5x8","./slider/index.mjs":"6YyBo","./space/index.mjs":"fdm11","./steps/index.mjs":"9fit0","./switch/index.mjs":"aErYv","./table/index.mjs":"imp1h","./tabs/index.mjs":"3MxUG","./tag/index.mjs":"96fQG","./time-picker/index.mjs":"4TaeO","./time-select/index.mjs":"k6X13","./timeline/index.mjs":"2CPF0","./tooltip/index.mjs":"kiwBC","./transfer/index.mjs":"baYrE","./tree/index.mjs":"bpXS0","./tree-v2/index.mjs":"eqslC","./upload/index.mjs":"fvmYn","./infinite-scroll/index.mjs":"fffis","./loading/index.mjs":"9QQSv","./message/index.mjs":"hqiSY","./message-box/index.mjs":"lPFAH","./notification/index.mjs":"a0vte","./popover/index.mjs":"cnet0","./affix/src/affix.mjs":"31RpQ","./alert/src/alert.mjs":"bmmdq","./avatar/src/avatar.mjs":"aSZOT","./backtop/src/backtop.mjs":"9ygQ4","./badge/src/badge.mjs":"4pSua","./breadcrumb/src/breadcrumb.mjs":"iV9UH","./breadcrumb/src/breadcrumb-item.mjs":"5U0qo","./button/src/button.mjs":"8GILO","./calendar/src/calendar.mjs":"4X2do","./card/src/card.mjs":"a9FEd","./cascader-panel/src/types.mjs":"5MNj5","./cascader-panel/src/config.mjs":"8uFuI","./check-tag/src/check-tag.mjs":"fL3TX","./col/src/col.mjs":"hxnIP","./config-provider/src/config-provider.mjs":"jXq22","./dialog/src/use-dialog.mjs":"kcxXl","./dialog/src/dialog.mjs":"imlUB","./divider/src/divider.mjs":"X6LID","./drawer/src/drawer.mjs":"6GsxM","./dropdown/src/dropdown.mjs":"7C9Hj","./dropdown/src/tokens.mjs":"ghjhG","./empty/src/empty.mjs":"6dOm6","./icon/src/icon.mjs":"buNkD","./image/src/image.mjs":"hhtmC","./image-viewer/src/image-viewer.mjs":"kIWgu","./input/src/input.mjs":"8Zju5","./input-number/src/input-number.mjs":"hcBfX","./link/src/link.mjs":"cyxqy","./menu/src/menu.mjs":"5fjO6","./menu/src/menu-item.mjs":"5FnwZ","./menu/src/menu-item-group.mjs":"foLPD","./menu/src/sub-menu.mjs":"d2lRI","./overlay/src/overlay.mjs":"fWAgM","./page-header/src/page-header.mjs":"wnNZL","./pagination/src/pagination.mjs":"3DWdA","./popconfirm/src/popconfirm.mjs":"PeZMy","./popper/src/arrow.mjs":"fjUPr","./popper/src/trigger.mjs":"3POmC","./popper/src/content.mjs":"lN2o5","./popper/src/deprecation.mjs":"jm0Kb","./popper/src/popper.mjs":"lCFux","./popper/src/tokens.mjs":"cbHZm","./progress/src/progress.mjs":"iea9L","./radio/src/radio.mjs":"gDfxw","./radio/src/radio-group.mjs":"ifp6r","./radio/src/radio-button.mjs":"eTDbS","./rate/src/rate.mjs":"eT6Re","./result/src/result.mjs":"lxN2C","./row/src/row.mjs":"f4k9l","./scrollbar/src/util.mjs":"eBQCF","./scrollbar/src/scrollbar.mjs":"123QS","./scrollbar/src/thumb.mjs":"gZPgI","./select/src/token.mjs":"cOSZy","./select-v2/src/token.mjs":"lk8V6","./skeleton/src/skeleton.mjs":"9BfJP","./skeleton/src/skeleton-item.mjs":"3Kx1r","./space/src/space.mjs":"5tyjs","./space/src/use-space.mjs":"gYCpP","./switch/src/switch.mjs":"77sPp","./tabs/src/tabs.mjs":"e8i7v","./tabs/src/tab-bar.mjs":"dhrbU","./tabs/src/tab-nav.mjs":"6DFds","./tabs/src/tab-pane.mjs":"hD9Q9","./tag/src/tag.mjs":"i4Ov7","./time-picker/src/common/date-utils.mjs":"3CJdm","./time-picker/src/common/constant.mjs":"b75g0","./time-picker/src/common/props.mjs":"gx1qH","./time-picker/src/common/picker.mjs":"3jAyz","./time-picker/src/time-picker-com/panel-time-pick.mjs":"351Kw","./timeline/src/timeline-item.mjs":"6SEpi","./tooltip/src/tooltip.mjs":"7LVFi","./tooltip/src/tokens.mjs":"a6G79","../constants/event.mjs":"92xVn","./virtual-list/src/components/fixed-size-list.mjs":"eaMZD","./virtual-list/src/components/dynamic-size-list.mjs":"ggHfi","./virtual-list/src/components/fixed-size-grid.mjs":"fyL0k","./virtual-list/src/components/dynamic-size-grid.mjs":"9Fq2m","./virtual-list/src/props.mjs":"2CLE6","./message/src/message.mjs":"exwnb","./notification/src/notification.mjs":"9l71J","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lBbja":[function() {},{}]},["5ADJI","egtqo"], "egtqo", "parcelRequire5799")
+},{"./virtual-list/index.mjs":"gcf4S","./affix/index.mjs":"fMcKf","./alert/index.mjs":"jX4vK","./autocomplete/index.mjs":"lnNbL","./avatar/index.mjs":"edhpQ","./backtop/index.mjs":"iA9M1","./badge/index.mjs":"gvyeW","./breadcrumb/index.mjs":"6p9GR","./button/index.mjs":"64Ym1","./calendar/index.mjs":"iyUgV","./card/index.mjs":"ftRFC","./carousel/index.mjs":"DjiER","./cascader/index.mjs":"hgxNT","./cascader-panel/index.mjs":"cvCE6","./check-tag/index.mjs":"2yvIi","./checkbox/index.mjs":"jMNjD","./col/index.mjs":"iutZ4","./collapse/index.mjs":"2aUAi","./collapse-transition/index.mjs":"kOsra","./color-picker/index.mjs":"kWiGH","./config-provider/index.mjs":"5LcSW","./container/index.mjs":"7nKg2","./date-picker/index.mjs":"fdWz7","./descriptions/index.mjs":"aXmMH","./dialog/index.mjs":"iXu3z","./divider/index.mjs":"8bcJq","./drawer/index.mjs":"DJoCd","./dropdown/index.mjs":"dk8yW","./empty/index.mjs":"5bPkj","./form/index.mjs":"hQT2m","./icon/index.mjs":"hnNTG","./image/index.mjs":"hFVHx","./image-viewer/index.mjs":"39t5l","./input/index.mjs":"18eQI","./input-number/index.mjs":"1U2Gu","./link/index.mjs":"18DrN","./menu/index.mjs":"5wfdz","./overlay/index.mjs":"2HJvE","./page-header/index.mjs":"cmyvF","./pagination/index.mjs":"ep8iT","./popconfirm/index.mjs":"ds8jY","./popper/index.mjs":"kIV7g","./progress/index.mjs":"9ijV7","./radio/index.mjs":"fekfn","./rate/index.mjs":"8o4Y1","./result/index.mjs":"lHyTs","./row/index.mjs":"7Vl2s","./scrollbar/index.mjs":"kXLHt","./select/index.mjs":"llDRW","./select-v2/index.mjs":"lUvDZ","./skeleton/index.mjs":"2N5x8","./slider/index.mjs":"6YyBo","./space/index.mjs":"fdm11","./steps/index.mjs":"9fit0","./switch/index.mjs":"aErYv","./table/index.mjs":"imp1h","./tabs/index.mjs":"3MxUG","./tag/index.mjs":"96fQG","./time-picker/index.mjs":"4TaeO","./time-select/index.mjs":"k6X13","./timeline/index.mjs":"2CPF0","./tooltip/index.mjs":"kiwBC","./transfer/index.mjs":"baYrE","./tree/index.mjs":"bpXS0","./tree-v2/index.mjs":"eqslC","./upload/index.mjs":"fvmYn","./infinite-scroll/index.mjs":"fffis","./loading/index.mjs":"9QQSv","./message/index.mjs":"hqiSY","./message-box/index.mjs":"lPFAH","./notification/index.mjs":"a0vte","./popover/index.mjs":"cnet0","./affix/src/affix.mjs":"31RpQ","./alert/src/alert.mjs":"bmmdq","./avatar/src/avatar.mjs":"aSZOT","./backtop/src/backtop.mjs":"9ygQ4","./badge/src/badge.mjs":"4pSua","./breadcrumb/src/breadcrumb.mjs":"iV9UH","./breadcrumb/src/breadcrumb-item.mjs":"5U0qo","./button/src/button.mjs":"8GILO","./calendar/src/calendar.mjs":"4X2do","./card/src/card.mjs":"a9FEd","./cascader-panel/src/types.mjs":"5MNj5","./cascader-panel/src/config.mjs":"8uFuI","./check-tag/src/check-tag.mjs":"fL3TX","./col/src/col.mjs":"hxnIP","./config-provider/src/config-provider.mjs":"jXq22","./dialog/src/use-dialog.mjs":"kcxXl","./dialog/src/dialog.mjs":"imlUB","./divider/src/divider.mjs":"X6LID","./drawer/src/drawer.mjs":"6GsxM","./dropdown/src/dropdown.mjs":"7C9Hj","./dropdown/src/tokens.mjs":"ghjhG","./empty/src/empty.mjs":"6dOm6","./icon/src/icon.mjs":"buNkD","./image/src/image.mjs":"hhtmC","./image-viewer/src/image-viewer.mjs":"kIWgu","./input/src/input.mjs":"8Zju5","./input-number/src/input-number.mjs":"hcBfX","./link/src/link.mjs":"cyxqy","./menu/src/menu.mjs":"5fjO6","./menu/src/menu-item.mjs":"5FnwZ","./menu/src/menu-item-group.mjs":"foLPD","./menu/src/sub-menu.mjs":"d2lRI","./overlay/src/overlay.mjs":"fWAgM","./page-header/src/page-header.mjs":"wnNZL","./pagination/src/pagination.mjs":"3DWdA","./popconfirm/src/popconfirm.mjs":"PeZMy","./popper/src/arrow.mjs":"fjUPr","./popper/src/trigger.mjs":"3POmC","./popper/src/content.mjs":"lN2o5","./popper/src/deprecation.mjs":"jm0Kb","./popper/src/popper.mjs":"lCFux","./popper/src/tokens.mjs":"cbHZm","./progress/src/progress.mjs":"iea9L","./radio/src/radio.mjs":"gDfxw","./radio/src/radio-group.mjs":"ifp6r","./radio/src/radio-button.mjs":"eTDbS","./rate/src/rate.mjs":"eT6Re","./result/src/result.mjs":"lxN2C","./row/src/row.mjs":"f4k9l","./scrollbar/src/util.mjs":"eBQCF","./scrollbar/src/scrollbar.mjs":"123QS","./scrollbar/src/thumb.mjs":"gZPgI","./select/src/token.mjs":"cOSZy","./select-v2/src/token.mjs":"lk8V6","./skeleton/src/skeleton.mjs":"9BfJP","./skeleton/src/skeleton-item.mjs":"3Kx1r","./space/src/space.mjs":"5tyjs","./space/src/use-space.mjs":"gYCpP","./switch/src/switch.mjs":"77sPp","./tabs/src/tabs.mjs":"e8i7v","./tabs/src/tab-bar.mjs":"dhrbU","./tabs/src/tab-nav.mjs":"6DFds","./tabs/src/tab-pane.mjs":"hD9Q9","./tag/src/tag.mjs":"i4Ov7","./time-picker/src/common/date-utils.mjs":"3CJdm","./time-picker/src/common/constant.mjs":"b75g0","./time-picker/src/common/props.mjs":"gx1qH","./time-picker/src/common/picker.mjs":"3jAyz","./time-picker/src/time-picker-com/panel-time-pick.mjs":"351Kw","./timeline/src/timeline-item.mjs":"6SEpi","./tooltip/src/tooltip.mjs":"7LVFi","./tooltip/src/tokens.mjs":"a6G79","../constants/event.mjs":"92xVn","./virtual-list/src/components/fixed-size-list.mjs":"eaMZD","./virtual-list/src/components/dynamic-size-list.mjs":"ggHfi","./virtual-list/src/components/fixed-size-grid.mjs":"fyL0k","./virtual-list/src/components/dynamic-size-grid.mjs":"9Fq2m","./virtual-list/src/props.mjs":"2CLE6","./message/src/message.mjs":"exwnb","./notification/src/notification.mjs":"9l71J","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"lBbja":[function() {},{}],"dwH06":[function() {},{}],"d8qyu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+parcelHelpers.export(exports, "store", ()=>store
+);
+/**
+ * Store Vue状态管理插件
+ * Store.set(key, value)
+ * Store.get(key)
+ * Store.action(key).then().catch()
+ * */ var _vue = require("vue");
+const store = {
+    state: {
+    },
+    actions: {
+    },
+    inStore (key) {
+        return this.state[key] !== void 0;
+    },
+    set (key, newValue) {
+        return new Promise((resolve, reject)=>{
+            if (this.inStore(key)) {
+                this.state[key] = newValue;
+                console.log('[Store] update:', key, '=>', this.state[key]);
+                resolve(newValue);
+            } else reject(`[Store] set("${key}", value): the key has not registered yet!`);
+        });
+    },
+    get (key) {
+        if (key && key.split) {
+            if (this.inStore(key)) return this.state[key];
+            else return new Error(`[Store] get("${key}"): the key has not registered yet!`);
+        }
+    },
+    action (key, payoud) {
+        return new Promise((resolve, reject)=>{
+            if (typeof this.actions[key] === 'function') {
+                const actionReturn = this.actions[key]({
+                    get: this.get.bind(store),
+                    set: this.set.bind(store)
+                }, payoud);
+                if (actionReturn && typeof actionReturn.then === 'function') // action 返回 Promise
+                actionReturn.then((data)=>{
+                    if (this.inStore(key)) // action 有同名 state ，触发自动模式
+                    this.set(key, data);
+                    resolve(data);
+                }).catch(reject);
+                else resolve(actionReturn);
+            } else reject(`[Store] action("${key}", ${payoud}): the action has not registered yet!`);
+        });
+    }
+};
+exports.default = {
+    install: function(app, options) {
+        // 合并 state
+        let optionState = options.state || {
+        };
+        if (typeof optionState === 'function') optionState = optionState() || {
+        };
+        const mergeState = Object.assign(store.state, optionState);
+        // 合并 action
+        Object.assign(store.actions, options.actions || {
+        });
+        if (_vue.reactive) {
+            // vue 3
+            store.state = _vue.reactive(mergeState);
+            app.config.globalProperties.$store = store;
+        } else if (app.observable) {
+            // vue 2
+            store.state = app.observable(mergeState);
+            app.$store = app.prototype.$store = store;
+        }
+    }
+};
+
+},{"vue":"gzxs9","@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}],"gutGu":[function(require,module,exports) {
+var parcelHelpers = require("@parcel/transformer-js/src/esmodule-helpers.js");
+parcelHelpers.defineInteropFlag(exports);
+exports.default = {
+    state: {
+        testValue: 0
+    },
+    actions: {
+        testAction: function(context) {
+            return new Promise((resolve)=>{
+                setTimeout(()=>{
+                    context.set('testValue', parseInt(context.get('testValue') + 1));
+                    resolve();
+                }, 500);
+            });
+        }
+    }
+};
+
+},{"@parcel/transformer-js/src/esmodule-helpers.js":"gkKU3"}]},["5ADJI","egtqo"], "egtqo", "parcelRequire5799")
 
 //# sourceMappingURL=index.9b4537c9.js.map
