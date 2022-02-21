@@ -175,7 +175,6 @@ Return status value。
 
 - action(type[String], payload[Any])
 
-分发 action 。即执行自定义操作，action 需要预先在 config.actions 中注册。payload 是向操作方法传递的参数。
 Distribute action. Action needs to be pre-registered in config.actions. Payload is the parameter passed to the operation method.
 
 Return Promise 。If the action handler returns a Promise, `store.action()` will return the Promise of the handler directly.
