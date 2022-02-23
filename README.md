@@ -127,30 +127,6 @@ Register on the action store. The handler function always accepts context as the
 
 At the same time, if there is the second parameter payload, it can also be received. Payload is a parameter carried when distributing actions.
 
-#### Automatic mode
-
-Action is most often used to obtain asynchronous data and store it in state. For this scenario, `vue-store` supports a simpler automatic mode。
-
-When the type of action has a state with the same name in state and the processing function returns a promise, the return value of promise will be automatically assigned to the state with the same name in state.
-
-Examples：
-
-```js
-export default {
-    state: {
-        AsynData: []
-    },
-    actions: {
-        AsynData: function (context, payload) {
-            return getAsynData(payload).then(res => {
-                // You can format the returned data here, and the returned value will be automatically stored in state.AsynData
-                return res.data;
-            })
-        },
-    }
-}
-```
-
 ### Store attribute
 
 - state
@@ -178,6 +154,54 @@ Return status value。
 Distribute action. Action needs to be pre-registered in config.actions. Payload is the parameter passed to the operation method.
 
 Return Promise 。If the action handler returns a Promise, `store.action()` will return the Promise of the handler directly.
+
+## Automatic mode
+
+Action is most often used to obtain asynchronous data and store it in state. For this scenario, `vue-store` supports a simpler automatic mode。
+
+When the type of action has a state with the same name in state and the processing function returns a promise, the return value of promise will be automatically assigned to the state with the same name in state.
+
+Examples：
+
+```js
+export default {
+    state: {
+        AsynData: []
+    },
+    actions: {
+        AsynData: function (context, payload) {
+            return getAsynData(payload).then(res => {
+                // You can format the returned data here, and the returned value will be automatically stored in state.AsynData
+                return res.data;
+            })
+        },
+    }
+}
+```
+
+## Request cache
+
+When some public data is requested using action and stored in state, which means that the data will be called and requested frequently within the application, request caching can be easily implemented with [@cutting-mat/axios](https://github.com/cutting-mat/axios/blob/main/README_CN.md).
+
+Examples：
+
+```js
+export default {
+    state: {
+        AsynData: [
+            userInfo: {}
+        ]
+    },
+    actions: {
+        userInfo: function (context, payload) {
+            return getUserInfo(null, {cache: true}).then(res => {
+                return res.data
+            })
+        }
+    }
+}
+
+```
 
 ## Responsive
 

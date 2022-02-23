@@ -128,30 +128,6 @@ this.$store.action('testAction').then(newValue = {
 
 同时如果有第二个参数 payload 的话也能够接收。payload 是分发 action 时携带的参数。
 
-#### 自动模式
-
-action 最常被用来获取异步数据并存入 state，对于这种场景`vue-store`支持一种更简单的自动模式。
-
-当 action 的 type 在 state 中有同名状态，且处理函数返回一个Promise时，Promise的返回值将自动赋值给 state 中的同名状态。
-
-示例：
-
-```js
-export default {
-    state: {
-        AsynData: []
-    },
-    actions: {
-        AsynData: function (context, payload) {
-            return getAsynData(payload).then(res => {
-                // 这里可以对返回数据做格式化操作，返回值将自动存入 state.AsynData
-                return res.data;
-            })
-        },
-    }
-}
-```
-
 ### Store 属性
 
 - state
@@ -179,6 +155,54 @@ export default {
 分发 action 。即执行自定义操作，action 需要预先在 config.actions 中注册。payload 是向操作方法传递的参数。
 
 返回 Promise 。如果 action 处理函数返回的是Promise，`store.action()` 会直接返回处理函数的 Promise 。
+
+## 自动模式
+
+action 最常被用来获取异步数据并存入 state，对于这种场景`vue-store`支持一种更简单的自动模式。
+
+当 action 的 type 在 state 中有同名状态，且处理函数返回一个Promise时，Promise的返回值将自动赋值给 state 中的同名状态。
+
+示例：
+
+```js
+export default {
+    state: {
+        AsynData: []
+    },
+    actions: {
+        AsynData: function (context, payload) {
+            return getAsynData(payload).then(res => {
+                // 这里可以对返回数据做格式化操作，返回值将自动存入 state.AsynData
+                return res.data;
+            })
+        },
+    }
+}
+```
+
+## 请求缓存
+
+当使用 action 请求的是某些公共数据并存入 state 时，这意味着该数据会在应用内被频繁的调用并发起请求，这时可以配合[@cutting-mat/axios](https://github.com/cutting-mat/axios/blob/main/README_CN.md)轻松实现请求缓存。
+
+实例：
+
+```js
+export default {
+    state: {
+        AsynData: [
+            userInfo: {}
+        ]
+    },
+    actions: {
+        userInfo: function (context, payload) {
+            return getUserInfo(null, {cache: true}).then(res => {
+                return res.data
+            })
+        }
+    }
+}
+
+```
 
 ## 响应式应用
 
