@@ -230,7 +230,7 @@ const $store = Store({
 })
 
 
-$store.state.get('someKey')         // 123
+$store.get('someKey')         // 123
 
 ```
 
