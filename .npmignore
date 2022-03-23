@@ -1,6 +1,5 @@
 node_modules
-.parcel-cache
-/.vscode
+.vscode
+/lib
 /src
-/test
 /docs

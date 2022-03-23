@@ -1,15 +1,41 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Simpler Vue state management plug-in",
   "private": false,
-  "source": "src/store.js",
-  "main": "dist/main.js",
-  "module": "dist/module.js",
+  "files": ["dist"],
+  "main": "./dist/store.umd.js",
+  "module": "./dist/store.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/store.es.js",
+      "require": "./dist/store.umd.js"
+    }
+  },
   "scripts": {
-    "serve": "parcel test/index.html --dist-dir docs",
-    "build": "parcel build",
-    "build-doc": "parcel test/index.html --dist-dir docs --public-url /vue-store/"
+    "serve": "vite",
+    "build": "vite build",
+    "build-doc": "vite build --target es2016",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "vue-demi": "^0.12.4"
+  },
+  "peerDependencies": {
+    "@vue/composition-api": "^1.4.9",
+    "vue": "^2.6.14 || >=3.2.31"
+  },
+  "peerDependenciesMeta": {
+    "@vue/composition-api": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@element-plus/icons-vue": "^0.2.7",
+    "element-plus": "^2.0.2",
+    "@vitejs/plugin-vue": "^2.2.0",
+    "vite": "^2.8.0",
+    "vue": "^3.2.31"
   },
   "repository": {
     "type": "git",
@@ -21,21 +47,6 @@
     "vue-store"
   ],
   "author": "tower12229@foxmail.com",
-  "dependencies": {
-    "vue-demi": "^0.12.4"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.4.9",
-    "vue": "^2.6.14 || >=3.2.0"
-  },
-  "devDependencies": {
-    "@element-plus/icons-vue": "^0.2.7",
-    "@parcel/transformer-vue": "^2.3.2",
-    "element-plus": "^2.0.2",
-    "parcel": "^2.3.2",
-    "process": "^0.11.10",
-    "vue": "^3.2.31"
-  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cutting-mat/vue-store/issues"
