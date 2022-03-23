@@ -1,17 +1,17 @@
-import { createApp } from 'vue'
+import Vue from 'vue'
 // 全局样式
 import './assets/global.css';
 
-
 import App from './App.vue'
-const app = createApp(App);
 
-import ElementPlus from 'element-plus'
-import 'element-plus/dist/index.css'
-app.use(ElementPlus)
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
 
-import { install as store } from '../lib/store.js';
+import { plugin as store } from '../lib/store.js';
 import storeConfig from "./store.config";
-app.use(store, storeConfig);
+Vue.use(store, storeConfig);
 
-app.mount('#app')
+new Vue({
+    render: h => h(App)
+}).$mount('#app')

@@ -1,17 +1,20 @@
 const path = require('path')
 import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
+import { createVuePlugin } from 'vite-plugin-vue2'
 
 /**
  * 构建 lib
- * */ 
+ * */
 export default defineConfig({
-  plugins: [vue()],
+  optimizeDeps: {
+    exclude: ['vue-demi']
+  },
+  plugins: [createVuePlugin()],
   build: {
     lib: {
       entry: path.resolve(__dirname, 'lib/store.js'),
-      name: 'VueStore',
-      fileName: (format) => `store.${format}.js`
+      name: 'v2',
+      fileName: (format) => `main.${format}.js`
     },
     rollupOptions: {
       external: ['vue'],
@@ -28,19 +31,8 @@ export default defineConfig({
  * 构建文档
 */
 // export default defineConfig({
-//   plugins: [vue()],
+//   plugins: [createVuePlugin()],
 //   build: {
-//     outDir: "docs",
-//     rollupOptions: {
-//       output: {
-//         manualChunks(id) {
-//           if (id.includes('element-plus')) {
-//             return 'element-plus';
-//           } else if (id.includes('node_modules')) {
-//             return 'vendor';
-//           }
-//         }
-//       }
-//     }
+//     outDir: "docs"
 //   }
 // })

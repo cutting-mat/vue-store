@@ -92,7 +92,7 @@
 import Store from "../../lib/store.js"
 const $store = Store({
   state: {
-    inject: 123
+    inject: 0
   }
 })
 
@@ -101,8 +101,12 @@ export default {
     return {
       loading: false,
       log: [],
-      state: this.$store.state
     };
+  },
+  computed: {
+    state(){
+      return this.$store.state
+    }
   },
   methods: {
     getNonExistent() {
@@ -120,7 +124,11 @@ export default {
       });
     },
   },
-  
+  created(){
+    setInterval(() => {
+      $store.state.inject++
+    }, 1000)
+  }
 }
 </script>
 

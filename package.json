@@ -1,15 +1,20 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Simpler Vue state management plug-in",
   "private": false,
-  "files": ["dist"],
-  "main": "./dist/store.umd.js",
-  "module": "./dist/store.es.js",
+  "files": [
+    "dist",
+    "LICENSE",
+    "README_CN.md",
+    "README.md"
+  ],
+  "main": "./dist/main.umd.js",
+  "module": "./dist/main.es.js",
   "exports": {
     ".": {
-      "import": "./dist/store.es.js",
-      "require": "./dist/store.umd.js"
+      "import": "./dist/main.es.js",
+      "require": "./dist/main.umd.js"
     }
   },
   "scripts": {
@@ -19,7 +24,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue-demi": "^0.12.4"
+    "vue-demi": "latest"
   },
   "peerDependencies": {
     "@vue/composition-api": "^1.4.9",
@@ -31,11 +36,10 @@
     }
   },
   "devDependencies": {
-    "@element-plus/icons-vue": "^0.2.7",
-    "element-plus": "^2.0.2",
-    "@vitejs/plugin-vue": "^2.2.0",
+    "element-ui": "^2.15.6",
     "vite": "^2.8.0",
-    "vue": "^3.2.31"
+    "vite-plugin-vue2": "^1.9.3",
+    "vue": "^2.6.14"
   },
   "repository": {
     "type": "git",
