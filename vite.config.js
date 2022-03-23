@@ -13,7 +13,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: path.resolve(__dirname, 'lib/store.js'),
-      name: 'v2',
+      name: 'store',
       fileName: (format) => `main.${format}.js`
     },
     rollupOptions: {

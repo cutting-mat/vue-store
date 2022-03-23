@@ -1,4 +1,4 @@
-(function(M,F){typeof exports=="object"&&typeof module!="undefined"?F(exports,require("vue")):typeof define=="function"&&define.amd?define(["exports","vue"],F):(M=typeof globalThis!="undefined"?globalThis:M||self,F(M.v2={},M.Vue))})(this,function(M,F){"use strict";function jt(t){return t&&typeof t=="object"&&"default"in t?t:{default:t}}var z=jt(F);/*! *****************************************************************************
+(function(M,F){typeof exports=="object"&&typeof module!="undefined"?F(exports,require("vue")):typeof define=="function"&&define.amd?define(["exports","vue"],F):(M=typeof globalThis!="undefined"?globalThis:M||self,F(M.store={},M.Vue))})(this,function(M,F){"use strict";function jt(t){return t&&typeof t=="object"&&"default"in t?t:{default:t}}var z=jt(F);/*! *****************************************************************************
     Copyright (c) Microsoft Corporation.
 
     Permission to use, copy, modify, and/or distribute this software for any

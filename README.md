@@ -4,7 +4,7 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-Simpler Vue state management plugin, compatible with both Vue2 and Vue3.
+Simpler Vue2 state management plugin, soon to be compatible with Vue3.
 
 If you also find Vuex a bit complicated, then you need `vue-store`.
 
@@ -19,7 +19,7 @@ npm i @cutting-mat/vue-store --save
 2. Configure Store
 
 ``` js
-import {install as store} from '@cutting-mat/vue-store';
+import {plugin as store} from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -44,7 +44,7 @@ There may be many data items in the actual project. You can put the configuratio
 
 ``` js
 // recommend
-import {install as store} from '@cutting-mat/vue-store';
+import {plugin as store} from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 

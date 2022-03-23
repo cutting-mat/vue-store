@@ -4,7 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-更简单的 Vue 状态管理插件，同时兼容 Vue2 和 Vue3。
+更简单的 Vue2 状态管理插件，即将兼容Vue3。
 
 如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
 
@@ -19,7 +19,7 @@ npm i @cutting-mat/vue-store --save
 2. 配置 Store
 
 ``` js
-import {install as store} from '@cutting-mat/vue-store';
+import {plugin as store} from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -45,7 +45,7 @@ Vue.use(store, {
 
 ``` js
 // 推荐
-import {install as store} from '@cutting-mat/vue-store';
+import {plugin as store} from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
