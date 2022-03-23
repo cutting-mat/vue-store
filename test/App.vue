@@ -54,6 +54,13 @@
 import myHeader from "./components/header";
 import myFooter from "./components/footer";
 
+import Store from "../src/store"
+const $store = Store({
+  state: {
+    inject: 123
+  }
+});
+
 export default {
   components: {
     myHeader,
@@ -75,7 +82,7 @@ export default {
       this.log = []
     },
     testStoreFun1() {
-      this.$store.set("testValue", Math.random());
+      this.$store.state.testValue = Math.random()
     },
     testStoreFun2() {
       this.$store.set("non-existent", Math.random()).catch(err => {
@@ -92,6 +99,9 @@ export default {
       });
     },
   },
+  created(){
+    console.log('inject:', $store.get('inject'))
+  }
 };
 </script>
 

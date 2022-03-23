@@ -1,4 +1,4 @@
-var $bfAfX$vue = require("vue");
+var $bfAfX$vuedemi = require("vue-demi");
 
 function $parcel$defineInteropFlag(a) {
   Object.defineProperty(a, '__esModule', {value: true, configurable: true});
@@ -9,12 +9,19 @@ function $parcel$export(e, n, v, s) {
 
 $parcel$defineInteropFlag(module.exports);
 
-$parcel$export(module.exports, "store", () => $a5a696647f903c1a$export$6f57813fe9f31bf9);
 $parcel$export(module.exports, "default", () => $a5a696647f903c1a$export$2e2bcd8739ae039);
+$parcel$export(module.exports, "install", () => $a5a696647f903c1a$export$4b3e715f166fdd78);
 
-const $a5a696647f903c1a$export$6f57813fe9f31bf9 = {
-    state: {
-    },
+/**
+ * Store Vue状态管理插件
+ * Store.set(key, value)
+ * Store.get(key)
+ * Store.action(key).then().catch()
+ * */ // 调试开关
+const $a5a696647f903c1a$var$DEBUG = false;
+const $a5a696647f903c1a$var$store = {
+    state: $bfAfX$vuedemi.reactive({
+    }),
     actions: {
     },
     inStore (key) {
@@ -39,8 +46,8 @@ const $a5a696647f903c1a$export$6f57813fe9f31bf9 = {
         return new Promise((resolve, reject)=>{
             if (typeof this.actions[key] === 'function') {
                 const actionReturn = this.actions[key]({
-                    get: this.get.bind($a5a696647f903c1a$export$6f57813fe9f31bf9),
-                    set: this.set.bind($a5a696647f903c1a$export$6f57813fe9f31bf9)
+                    get: this.get.bind($a5a696647f903c1a$var$store),
+                    set: this.set.bind($a5a696647f903c1a$var$store)
                 }, payoud);
                 if (actionReturn && typeof actionReturn.then === 'function') // action 返回 Promise
                 actionReturn.then((data)=>{
@@ -53,27 +60,36 @@ const $a5a696647f903c1a$export$6f57813fe9f31bf9 = {
         });
     }
 };
-var $a5a696647f903c1a$export$2e2bcd8739ae039 = {
-    install: function(app, options) {
+function $a5a696647f903c1a$export$2e2bcd8739ae039(app, options) {
+    if (app && (app.state || app.actions) && options === void 0) {
+        options = app;
+        app = null;
+    }
+    if (options) {
         // 合并 state
         let optionState = options.state || {
         };
         if (typeof optionState === 'function') optionState = optionState() || {
         };
-        const mergeState = Object.assign($a5a696647f903c1a$export$6f57813fe9f31bf9.state, optionState);
+        const mergeState = Object.assign($a5a696647f903c1a$var$store.state, optionState);
+        $a5a696647f903c1a$var$store.state = $bfAfX$vuedemi.reactive(mergeState);
         // 合并 action
-        Object.assign($a5a696647f903c1a$export$6f57813fe9f31bf9.actions, options.actions || {
+        Object.assign($a5a696647f903c1a$var$store.actions, options.actions || {
         });
-        if ($bfAfX$vue.reactive) {
-            // vue 3
-            $a5a696647f903c1a$export$6f57813fe9f31bf9.state = $bfAfX$vue.reactive(mergeState);
-            app.config.globalProperties.$store = $a5a696647f903c1a$export$6f57813fe9f31bf9;
-        } else if (app.observable) {
-            // vue 2
-            $a5a696647f903c1a$export$6f57813fe9f31bf9.state = app.observable(mergeState);
-            app.$store = app.prototype.$store = $a5a696647f903c1a$export$6f57813fe9f31bf9;
+    }
+    if (app) {
+        if ($bfAfX$vuedemi.isVue3) {
+            $a5a696647f903c1a$var$DEBUG && console.log('[Store] isVue3');
+            app.config.globalProperties.$store = $a5a696647f903c1a$var$store;
+        } else if ($bfAfX$vuedemi.isVue2) {
+            $a5a696647f903c1a$var$DEBUG && console.log('[Store] isVue2');
+            app.prototype.$store = $a5a696647f903c1a$var$store;
         }
     }
+    return $a5a696647f903c1a$var$store;
+}
+const $a5a696647f903c1a$export$4b3e715f166fdd78 = {
+    install: $a5a696647f903c1a$export$2e2bcd8739ae039
 };
 
 

@@ -10,7 +10,7 @@ const DEBUG = process.env.NODE_ENV === "development";
 import { isVue2, isVue3, reactive } from "vue-demi";
 
 const store = {
-    state: reactive({}),
+    state: {},
     actions: {},
     inStore(key) {
         return this.state[key] !== void (0)
@@ -62,12 +62,7 @@ const store = {
     }
 }
 
-export default function installer(app, options) {
-    if(app && (app.state || app.actions) && options===void(0)){
-        options = app;
-        app = null;
-    }
-
+export default install = function (app, options) {
     if (options) {
         // 合并 state
         let optionState = options.state || {}
@@ -93,8 +88,4 @@ export default function installer(app, options) {
     }
 
     return store
-}
-
-export const install = {
-    install: installer
 }

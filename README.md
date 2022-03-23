@@ -4,9 +4,9 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-A simpler Vue state management plug-in. If you also think Vuex is a little complicated, you need `vue-store`.
+Simpler Vue state management plugin, compatible with both Vue2 and Vue3.
 
-Only 'get() / set() / action()' is enough, and it is compatible with vue2 and vue3。
+If you also find Vuex a bit complicated, then you need `vue-store`.
 
 ## Quick start
 
@@ -19,7 +19,7 @@ npm i @cutting-mat/vue-store --save
 2. Configure Store
 
 ``` js
-import store from '@cutting-mat/vue-store';
+import {install as store} from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -44,7 +44,7 @@ There may be many data items in the actual project. You can put the configuratio
 
 ``` js
 // recommend
-import store from '@cutting-mat/vue-store';
+import {install as store} from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
@@ -57,9 +57,6 @@ The plug-in will automatically register the global `$store` object. Now, you can
 The following statements are equivalent:
 
 ``` js
-Vue.$store.state.testValue      // 0
-Vue.$store.get('testValue')     // 0
-
 this.$store.state.testValue     // 0
 this.$store.get('testValue')    // 0
 
@@ -68,9 +65,6 @@ this.$store.get('testValue')    // 0
 Use `$store.set()` assign value to status.
 
 ``` js
-
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))  // 0.279396939199827
-
 this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.5405537846956767
 
 ```
@@ -89,10 +83,6 @@ this.$store.state.unRegisteredKey = 456 // Unregistered status is not responsive
 Use `$store.action()` execute custom operation.
 
 ```js
-Vue.$store.action('testAction').then(newValue = {
-    console.log(newValue)       // 1
-})
-
 this.$store.action('testAction').then(newValue = {
     console.log(newValue)       // 2
 })
@@ -226,6 +216,21 @@ export default {
         }
     }
 }
+
+```
+
+## Plug-in use
+
+It can be used independently from the Vue application environment, for example, when developing plug-ins.
+
+``` js
+import Store from "@cutting-mat/vue-store"
+const $store = Store({
+    someKey: 123
+})
+
+
+$store.state.get('someKey')         // 123
 
 ```
 

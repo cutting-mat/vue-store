@@ -4,9 +4,9 @@
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-更简单的 Vue 状态管理插件，如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
+更简单的 Vue 状态管理插件，同时兼容 Vue2 和 Vue3。
 
-只有 `get()/set()/action()` 3个方法，同时兼容 Vue2 和 Vue3。
+如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
 
 ## 快速开始
 
@@ -19,7 +19,7 @@ npm i @cutting-mat/vue-store --save
 2. 配置 Store
 
 ``` js
-import store from '@cutting-mat/vue-store';
+import {install as store} from '@cutting-mat/vue-store';
 
 Vue.use(store, {
     state: {
@@ -45,7 +45,7 @@ Vue.use(store, {
 
 ``` js
 // 推荐
-import store from '@cutting-mat/vue-store';
+import {install as store} from '@cutting-mat/vue-store';
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
 
@@ -53,14 +53,11 @@ Vue.use(store, storeConfig);
 
 3. 使用
 
-插件将自动注册全局 `$store` 对象。现在，你可以通过 `$store.state` 或 `$store.get()` 来获取状态对象。
+插件将注册 `$store` 实例方法。现在，你可以通过 `this.$store.state` 或 `this.$store.get()` 来获取状态对象。
 
 以下语句等效：
 
 ``` js
-Vue.$store.state.testValue      // 0
-Vue.$store.get('testValue')     // 0
-
 this.$store.state.testValue     // 0
 this.$store.get('testValue')    // 0
 
@@ -69,8 +66,6 @@ this.$store.get('testValue')    // 0
 用 `$store.set()` 为状态赋值。
 
 ``` js
-
-Vue.$store.set('testValue', parseInt(Math.random() * 1e8))  // 0.279396939199827
 
 this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.5405537846956767
 
@@ -90,10 +85,6 @@ this.$store.state.unRegisteredKey = 456 // 未注册的状态不具备响应性
 通过 `$store.action()` 执行自定义操作。
 
 ```js
-Vue.$store.action('testAction').then(newValue = {
-    console.log(newValue)       // 1
-})
-
 this.$store.action('testAction').then(newValue = {
     console.log(newValue)       // 2
 })
@@ -206,7 +197,7 @@ export default {
 
 ## 响应式应用
 
-$store.state 中的状态数据是响应式的。
+`$store.state` 中的数据是响应式的。
 
 ``` html
 <template>
@@ -227,6 +218,21 @@ export default {
         }
     }
 }
+
+```
+
+## 插件式使用
+
+可以脱离Vue应用环境独立使用，比如在开发插件时。
+
+``` js
+import Store from "@cutting-mat/vue-store"
+const $store = Store({
+    someKey: 123
+})
+
+
+$store.state.get('someKey')         // 123
 
 ```
 
