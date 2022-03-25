@@ -21,7 +21,7 @@
 
       <h3 class="channeltitle">演示</h3>
 
-      <el-button title="state.testValue++" @click="state.testValue++">
+      <el-button title="$store.state.testValue++" @click="$store.state.testValue++">
         更新
       </el-button>
       <el-button
@@ -79,7 +79,7 @@
         </div>
         
         <div>
-          state.testValue = {{ state.testValue }}
+          $store.state.testValue = {{ testValue }}
         </div>
         
         <div v-for="(item, index) in log" :key="index">{{ item }}</div>
@@ -106,15 +106,18 @@ export default {
   computed: {
     state(){
       return this.$store.state
+    },
+    testValue(){
+      return this.$store.state.testValue
     }
   },
   methods: {
-    getNonExistent() {
+    setNonExistent() {
       this.$store.set("non-existent", Math.random()).catch(err => {
         this.log.push(err)
       })
     },
-    setNonExistent() {
+    getNonExistent() {
       this.log.push(this.$store.get("non-existent"))
     },
     handleAsync() {

@@ -1,11 +1,12 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Simpler Vue state management plug-in",
   "private": false,
   "files": [
     "dist",
     "LICENSE",
+    "package.json",
     "README_CN.md",
     "README.md"
   ],
@@ -23,23 +24,12 @@
     "build-doc": "vite build --target es2016",
     "preview": "vite preview"
   },
-  "dependencies": {
-    "vue-demi": "latest"
-  },
-  "peerDependencies": {
-    "@vue/composition-api": "^1.4.9",
-    "vue": "^2.6.14 || >=3.2.31"
-  },
-  "peerDependenciesMeta": {
-    "@vue/composition-api": {
-      "optional": true
-    }
-  },
   "devDependencies": {
-    "element-ui": "^2.15.6",
+    "@element-plus/icons-vue": "^0.2.7",
+    "element-plus": "^2.0.2",
+    "@vitejs/plugin-vue": "2.2.4",
     "vite": "^2.8.0",
-    "vite-plugin-vue2": "^1.9.3",
-    "vue": "^2.6.14"
+    "vue": "^3.2.31"
   },
   "repository": {
     "type": "git",

@@ -1,38 +1,35 @@
 const path = require('path')
 import { defineConfig } from 'vite'
-import { createVuePlugin } from 'vite-plugin-vue2'
+import vue from '@vitejs/plugin-vue'
 
 /**
  * 构建 lib
  * */
-export default defineConfig({
-  optimizeDeps: {
-    exclude: ['vue-demi']
-  },
-  plugins: [createVuePlugin()],
-  build: {
-    lib: {
-      entry: path.resolve(__dirname, 'lib/store.js'),
-      name: 'store',
-      fileName: (format) => `main.${format}.js`
-    },
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue'
-        }
-      }
-    }
-  }
-})
+// export default defineConfig({
+//   plugins: [vue()],
+//   build: {
+//     lib: {
+//       entry: path.resolve(__dirname, 'lib/store.js'),
+//       name: 'store',
+//       fileName: (format) => `main.${format}.js`
+//     },
+//     rollupOptions: {
+//       external: ['vue'],
+//       output: {
+//         globals: {
+//           vue: 'Vue'
+//         }
+//       }
+//     }
+//   }
+// })
 
 /**
  * 构建文档
 */
-// export default defineConfig({
-//   plugins: [createVuePlugin()],
-//   build: {
-//     outDir: "docs"
-//   }
-// })
+export default defineConfig({
+  plugins: [vue()],
+  build: {
+    outDir: "docs"
+  }
+})

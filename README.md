@@ -4,9 +4,7 @@ English | [中文](README_CN.md)
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-Simpler Vue2 state management plugin, soon to be compatible with Vue3.
-
-If you also find Vuex a bit complicated, then you need `vue-store`.
+Simpler Vue3.x state management plugin. If you also find Vuex a bit complicated, then you need `vue-store`.
 
 ## Quick start
 
@@ -73,6 +71,8 @@ You can also assign a value to the state directly, but make sure the key is regi
 
 ``` js
 this.$store.state.testValue = 123   // 123
+
+this.$store.state.testValue++   // 124
 
 this.$store.state.unRegisteredKey = 456 // Unregistered status is not responsive 
 
@@ -203,7 +203,7 @@ The state data in $store.state is responsive。
         <div>
             Responsive Data：testValue = {{ testValue }}
         </div>
-        <button @click.native="$store.action('testAction')">Change data</button>
+        <button @click.native="$store.state.testValue++">Change data</button>
     </div>
 </template>>
 ```

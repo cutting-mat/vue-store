@@ -4,9 +4,7 @@
 
 [![npm](https://img.shields.io/npm/v/@cutting-mat/vue-store.svg)](https://www.npmjs.com/package/@cutting-mat/vue-store) [![license](https://img.shields.io/github/license/cutting-mat/vue-store.svg)]()
 
-更简单的 Vue2 状态管理插件，即将兼容Vue3。
-
-如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
+更简单的 Vue3.x 状态管理插件。如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
 
 ## 快速开始
 
@@ -76,7 +74,9 @@ this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.540553784695676
 ``` js
 this.$store.state.testValue = 123   // 123
 
-this.$store.state.unRegisteredKey = 456 // 未注册的状态不具备响应性 
+this.$store.state.testValue++   // 124
+
+this.$store.state.unRegisteredKey = 456 // 未注册的数据不具备响应性 
 
 ```
 
@@ -205,7 +205,7 @@ export default {
         <div>
             响应式数据：testValue = {{ testValue }}
         </div>
-        <button @click.native="$store.action('testAction')">改变数据</button>
+        <button @click.native="$store.state.testValue++">改变数据</button>
     </div>
 </template>>
 ```
