@@ -6,6 +6,8 @@ English | [中文](README_CN.md)
 
 Simpler Vue3.x state management plugin. If you also find Vuex a bit complicated, then you need `vue-store`.
 
+[Vue2 version](https://github.com/cutting-mat/vue-store/tree/vue2.x)
+
 ## Quick start
 
 1. Install:

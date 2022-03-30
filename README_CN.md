@@ -6,6 +6,8 @@
 
 更简单的 Vue3.x 状态管理插件。如果你也觉得 Vuex 有点复杂，那么你需要 `vue-store`。
 
+[Vue2 版](https://github.com/cutting-mat/vue-store/tree/vue2.x)
+
 ## 快速开始
 
 1. 安装:
