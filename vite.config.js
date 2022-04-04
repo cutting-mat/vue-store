@@ -29,6 +29,7 @@ import vue from '@vitejs/plugin-vue'
 */
 export default defineConfig({
   plugins: [vue()],
+  publicDir: '/vue-store/',
   build: {
     outDir: "docs"
   }
