@@ -78,6 +78,13 @@ function installer(app, options) {
   }
   if (app) {
     app.config.globalProperties.$store = store;
+    app.mixin({
+      data() {
+        return {
+          $state: store.state
+        };
+      }
+    });
   }
   return store;
 }

@@ -1,4 +1,3 @@
-
 <template>
   <div class="flex-1 scrollbar">
     <div class="wrap">
@@ -21,7 +20,10 @@
 
       <h3 class="channeltitle">演示</h3>
 
-      <el-button title="$store.state.testValue++" @click="$store.state.testValue++">
+      <el-button
+        title="$store.state.testValue++"
+        @click="$store.state.testValue++"
+      >
         更新
       </el-button>
       <el-button
@@ -41,7 +43,12 @@
 
       <div class="log">
         <div class="_btn">
-          <el-link target="_blank" title="清空日志" :underline="false" @click="log = []">
+          <el-link
+            target="_blank"
+            title="清空日志"
+            :underline="false"
+            @click="log = []"
+          >
             <svg
               class="icon"
               width="1.2em"
@@ -77,11 +84,9 @@
             </svg>
           </el-link>
         </div>
-        
-        <div>
-          $store.state.testValue = {{ testValue }}
-        </div>
-        
+
+        <div>$store.state.testValue = {{ $store.state.testValue }}</div>
+
         <div v-for="(item, index) in log" :key="index">{{ item }}</div>
       </div>
     </div>
@@ -89,12 +94,12 @@
 </template>
 
 <script>
-import Store from "../../lib/store.js"
+import Store from "../../lib/store.js";
 const $store = Store({
   state: {
-    inject: 0
-  }
-})
+    inject: 0,
+  },
+});
 
 export default {
   data() {
@@ -103,22 +108,14 @@ export default {
       log: [],
     };
   },
-  computed: {
-    state(){
-      return this.$store.state
-    },
-    testValue(){
-      return this.$store.state.testValue
-    }
-  },
   methods: {
     setNonExistent() {
-      this.$store.set("non-existent", Math.random()).catch(err => {
-        this.log.push(err)
-      })
+      this.$store.set("non-existent", Math.random()).catch((err) => {
+        this.log.push(err);
+      });
     },
     getNonExistent() {
-      this.log.push(this.$store.get("non-existent"))
+      this.log.push(this.$store.get("non-existent"));
     },
     handleAsync() {
       this.loading = true;
@@ -127,12 +124,12 @@ export default {
       });
     },
   },
-  created(){
-    setInterval(() => {
-      $store.state.inject++
-    }, 1000)
-  }
-}
+  created() {
+    // setInterval(() => {
+    //   $store.state.inject++;
+    // }, 1000);
+  },
+};
 </script>
 
 <style scoped>

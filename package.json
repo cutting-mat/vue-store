@@ -1,6 +1,6 @@
 {
   "name": "@cutting-mat/vue-store",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Simpler Vue state management plug-in",
   "private": false,
   "files": [
@@ -25,11 +25,11 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@element-plus/icons-vue": "^0.2.7",
-    "element-plus": "^2.0.2",
-    "@vitejs/plugin-vue": "2.2.4",
-    "vite": "^2.8.0",
-    "vue": "^3.2.31"
+    "@element-plus/icons-vue": "^1.1.4",
+    "element-plus": "^2.1.9",
+    "@vitejs/plugin-vue": "2.3.1",
+    "vite": "^2.9.5",
+    "vue": "^3.2.33"
   },
   "repository": {
     "type": "git",

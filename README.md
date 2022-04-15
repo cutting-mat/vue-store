@@ -12,72 +12,68 @@ Simpler Vue3.x state management plugin. If you also find Vuex a bit complicated,
 
 1. Install:
 
-``` bash
+```bash
 npm i @cutting-mat/vue-store --save
 ```
 
 2. Configure Store
 
-``` js
-import {plugin as store} from '@cutting-mat/vue-store';
+```js
+import { plugin as store } from "@cutting-mat/vue-store";
 
 Vue.use(store, {
-    state: {
-        // Data in store
-        testValue: null,
+  state: {
+    // Data in store
+    testValue: null,
+  },
+  actions: {
+    // Asynchronous operation
+    testAction: function (context) {
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          context.set("testValue", parseInt(context.get("testValue") + 1));
+          resolve();
+        }, 500);
+      });
     },
-    actions: {
-        // Asynchronous operation
-        testAction: function(context){
-            return new Promise(resolve => {
-                setTimeout(() => {
-                    context.set('testValue', parseInt(context.get('testValue')+1))
-                    resolve()
-                }, 500)
-            })
-        }
-    }
+  },
 });
 ```
 
 There may be many data items in the actual project. You can put the configuration in a separate file:
 
-``` js
+```js
 // recommend
-import {plugin as store} from '@cutting-mat/vue-store';
+import { plugin as store } from "@cutting-mat/vue-store";
 import storeConfig from "@/store.config";
 Vue.use(store, storeConfig);
-
 ```
 
 3. Use
 
-The plug-in will automatically register the global `$store` object. Now, you can use  `$store.state` or `$store.get()` to get the status object.
+The plug-in will automatically register the global `$store` object. Now, you can use `$store.state` or `$store.get()` to get the status object.
 
 The following statements are equivalent:
 
-``` js
-this.$store.state.testValue     // 0
-this.$store.get('testValue')    // 0
-
+```js
+this.$store.state.testValue; // 0
+this.$store.get("testValue"); // 0
 ```
 
 Use `$store.set()` assign value to status.
 
-``` js
-this.$store.set('testValue', parseInt(Math.random() * 1e8)) // 0.5405537846956767
-
+```js
+this.$store.set("testValue", parseInt(Math.random() * 1e8)); // 0.5405537846956767
 ```
 
 You can also assign a value to the state directly, but make sure the key is registered in advance, otherwise the data is not responsive.
 
-``` js
-this.$store.state.testValue = 123   // 123
+```js
+this.$store.state.testValue = 123; // 123
 
-this.$store.state.testValue++   // 124
+this.$store.state.testValue++; // 124
 
-this.$store.state.unRegisteredKey = 456 // Unregistered status is not responsive 
-
+this.$store.state.unRegisteredKey = 456; // Unregistered status is not responsive
 ```
 
 `$store.set()` will intercept and prompt unregistered assignment operations, so it is recommended to always use `$store.set()` assignment.
@@ -111,10 +107,9 @@ Register on the action store. The handler function always accepts context as the
 
 ```js
 {
-  set,      // Equivalent to `store.set`
-  get       // Equivalent to `store.get`
+  set, // Equivalent to `store.set`
+    get; // Equivalent to `store.get`
 }
-
 ```
 
 At the same time, if there is the second parameter payload, it can also be received. Payload is a parameter carried when distributing actions.
@@ -157,18 +152,18 @@ Examples：
 
 ```js
 export default {
-    state: {
-        AsynData: []
+  state: {
+    AsynData: [],
+  },
+  actions: {
+    AsynData: function (context, payload) {
+      return getAsynData(payload).then((res) => {
+        // You can format the returned data here, and the returned value will be automatically stored in state.AsynData
+        return res.data;
+      });
     },
-    actions: {
-        AsynData: function (context, payload) {
-            return getAsynData(payload).then(res => {
-                // You can format the returned data here, and the returned value will be automatically stored in state.AsynData
-                return res.data;
-            })
-        },
-    }
-}
+  },
+};
 ```
 
 ## Request cache
@@ -199,41 +194,28 @@ export default {
 
 The state data in $store.state is responsive。
 
-``` html
+```html
 <template>
+  <div>
     <div>
-        <div>
-            Responsive Data：testValue = {{ testValue }}
-        </div>
-        <button @click.native="$store.state.testValue++">Change data</button>
+      Responsive Data：testValue = {{ tes$store.state.testValuetValue }}
     </div>
-</template>>
-```
-
-``` js
-export default {
-    computed: {
-        testValue(){
-            return this.$store.state.testValue
-        }
-    }
-}
-
+    <button @click.native="$store.state.testValue++">Change data</button>
+  </div> </template
+>>
 ```
 
 ## Plug-in use
 
 It can be used independently from the Vue application environment, for example, when developing plug-ins.
 
-``` js
-import Store from "@cutting-mat/vue-store"
+```js
+import Store from "@cutting-mat/vue-store";
 const $store = Store({
-    someKey: 123
-})
+  someKey: 123,
+});
 
-
-$store.get('someKey')         // 123
-
+$store.get("someKey"); // 123
 ```
 
 ## License
