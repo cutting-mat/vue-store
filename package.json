@@ -21,7 +21,7 @@
   "scripts": {
     "serve": "vite",
     "build": "vite build",
-    "build-doc": "vite build --target es2016",
+    "build-site": "vite build --config vite.config.site.js",
     "preview": "vite preview"
   },
   "devDependencies": {

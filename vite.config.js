@@ -23,14 +23,3 @@ export default defineConfig({
     }
   }
 })
-
-/**
- * 构建文档
-*/
-// export default defineConfig({
-//   plugins: [vue()],
-//   base: '/vue-store/',
-//   build: {
-//     outDir: "docs"
-//   }
-// })
